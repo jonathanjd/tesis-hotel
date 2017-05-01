@@ -1,0 +1,1 @@
+{"version":3,"sources":["main.scss"],"names":[],"mappings":"AAEA;EACI,0BAHgB;CAInB","file":"main.css","sourcesContent":["$color-gray: #e7e7e7;\r\n\r\n.background-gray {\r\n    background-color: $color-gray;\r\n}\r\n"]}
