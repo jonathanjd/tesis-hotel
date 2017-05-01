@@ -23,4 +23,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
 
     Route::get('/', 'AdminController@index')->name('admin');
 
+    Route::resource('cliente', 'CustomerController');
+
+    Route::resource('contact', 'ContactController');
+
 });

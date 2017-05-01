@@ -15,7 +15,7 @@
                             <table class="table">
                                 <tr>
                                     <td>
-                                        <i class="glyphicon glyphicon-menu-right"></i><a href="#"> Registrar Cliente</a>
+                                        <i class="glyphicon glyphicon-menu-right"></i><a href="{{ route('cliente.index') }}"> Registrar Cliente</a>
                                     </td>
                                 </tr>
                                 <tr>
@@ -142,9 +142,8 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-10">
+            @yield('content')
+        </div>
     </div>
-    <div class="col-md-10">
-        @yield('content')
-    </div>
-</div>
 </div>
