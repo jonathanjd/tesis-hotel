@@ -26,6 +26,9 @@
     <!-- Custom CSS MAIN -->
     {!! Html::style('css/main.css') !!}
 
+    <!-- Other CSS -->
+    @yield('style')
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -64,5 +67,7 @@
     <!-- Custom Theme JavaScript -->
     {!! Html::script('js/sb-admin-2.min.js') !!}
 
+    <!-- Other Scripts -->
+    @yield('script')
 </body>
 </html>

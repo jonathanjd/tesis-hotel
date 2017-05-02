@@ -55,7 +55,7 @@
                     <a href="#"><i class="fa fa-credit-card fa-fw"></i> Gestionar Ventas<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Registrar Clientes</a>
+                            <a href="{{ route('cliente.create') }}">Registrar Clientes</a>
                         </li>
                         <li>
                             <a href="#">Consultar Disponibilidad</a>
