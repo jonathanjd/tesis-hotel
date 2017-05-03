@@ -17,4 +17,27 @@ class Customer extends Model
     {
         return $this->hasOne('App\Contact');
     }
+
+    public function scopeBuscarCodigo($query)
+    {
+        # code...
+        return $query
+            ->select('codigo_cte')
+            ->orderBy('codigo_cte', 'DESC')
+            ->first();
+    }
+
+    public static function ultimoCodigo()
+    {
+        # code...
+        $lastCodigo = Customer::buscarCodigo();
+
+        if ($lastCodigo->exists()) {
+            # code...
+            return $lastCodigo->codigo_cte + 1;
+        }else{
+            return $lastCodigo = 1;
+        }
+
+    }
 }

@@ -8,6 +8,8 @@ use App\Customer;
 
 use App\Contact;
 
+use Debugbar;
+
 class CustomerController extends Controller
 {
     /**
@@ -18,9 +20,6 @@ class CustomerController extends Controller
     public function index()
     {
         //
-        $customers = Customer::orderBy('id', 'desc')->paginate('5');
-        return view('customer.index')
-            ->with('customers', $customers);
     }
 
     /**
@@ -31,8 +30,10 @@ class CustomerController extends Controller
     public function create()
     {
         //
+
         $customer = new Customer();
         $contact = new Contact();
+
         return view('customer.create')
             ->with('customer', $customer)
             ->with('contact', $contact);
@@ -47,6 +48,48 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         //
+        $request->codigo_cte = Customer::ultimoCodigo();
+
+        $this->validate($request,[
+            'cedula_rif' => 'required|max:15|unique:customers',
+            'nombre' => 'required|max:25',
+            'domicilio' => 'required|max:25',
+            'telefono' => 'required|max:15',
+            'fax' => 'required|max:15',
+            'email' => 'required|email|max:25|unique:customers',
+            'tipo_cte' => 'required',
+            'contacto_c1' => 'required|max:25',
+            'cargo_dpto_c1' => 'required|max:25',
+            'telefono_c1' => 'required|max:15',
+            'contacto_c2' => 'max:25',
+            'cargo_dpto_c2' => 'max:25',
+            'telefono_c2' => 'max:15',
+        ]);
+
+
+        $customer = new Customer();
+        $customer->codigo_cte = $request->codigo_cte;
+        $customer->cedula_rif = $request->cedula_rif;
+        $customer->nombre = $request->nombre;
+        $customer->domicilio = $request->domicilio;
+        $customer->telefono = $request->telefono;
+        $customer->fax = $request->fax;
+        $customer->email = $request->email;
+        $customer->tipo_cte = $request->tipo_cte;
+        $customer->save();
+
+        $contact = new Contact();
+        $contact->contacto_c1 = $request->contacto_c1;
+        $contact->cargo_dpto_c1 = $request->cargo_dpto_c1;
+        $contact->telefono_c1 = $request->telefono_c1;
+        $contact->contacto_c2 = $request->contacto_c2;
+        $contact->cargo_dpto_c2 = $request->cargo_dpto_c2;
+        $contact->telefono_c2 = $request->telefono_c2;
+        $contact->customer_id = $customer->id;
+        $contact->save();
+
+
+
     }
 
     /**
