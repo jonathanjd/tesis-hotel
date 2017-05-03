@@ -18,6 +18,14 @@ class Customer extends Model
         return $this->hasOne('App\Contact');
     }
 
+
+    public function scopeBuscarCustomer($query,$cedula)
+    {
+        # code...
+        return $query->with('contact')->where('cedula_rif', $cedula)->first();
+    }
+
+
     public function scopeBuscarCodigo($query)
     {
         # code...

@@ -20,6 +20,7 @@ class CustomerController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
@@ -37,6 +38,13 @@ class CustomerController extends Controller
         return view('customer.create')
             ->with('customer', $customer)
             ->with('contact', $contact);
+    }
+
+    public function buscar($cedula)
+    {
+        # code...
+        $customer = Customer::buscarCustomer($cedula);
+        return response()->json($customer);
     }
 
     /**

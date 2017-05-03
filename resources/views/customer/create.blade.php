@@ -12,19 +12,19 @@
 
     <!-- Formulario para Buscar Clientes -->
     <div>
-        {!! Form::open(['method' => 'POST', 'class' => 'form-horizonta well', 'data-parsley-validate' => '']) !!}
+        <form class="form-horizonta well" method="get" @submit.prevent="buscarCliente">
         <fieldset>
             <legend>Buscar Clientes</legend>
             <div>
                 <div class="col-md-10">
-                    <input class="form-control" type="text" name="" value="" required="" maxlength="25">
+                    <input class="form-control" type="text" name="buscar" v-model="buscar" value="">
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-success" type="button" name="button">Buscar</button>
+                    <button class="btn btn-success" type="submit" name="button">Buscar</button>
                 </div>
             </div>
         </fieldset>
-        {!! Form::close() !!}
+        </form>
     </div>
 
     <!-- Formulario Clientes -->
