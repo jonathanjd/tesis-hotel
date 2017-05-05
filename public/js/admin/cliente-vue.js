@@ -5,6 +5,7 @@ new Vue({
 
     data:{
         'myData': {
+            id: '',
             cedula_rif: '',
             nombre: '',
             domicilio: '',
@@ -27,6 +28,8 @@ new Vue({
         result: {},
 
         buscar: '',
+
+        update: false,
     },
 
     computed: {
@@ -39,15 +42,31 @@ new Vue({
 
         onSubmitForm: function(){
             var getData = this.myData;
-            this.$http.post('/admin/cliente', getData).then(
-                function(){
-                    this.msjSuccess = true;
-                    this.cleanData();
-                },
-                function(response){
-                    this.msjSuccess = false;
-                    this.formErrors = response.data;
-            });
+            if (this.update) {
+                //Actualizar registro
+                this.$http.put('/admin/cliente/' + this.myData.id, getData).then(
+                    function(){
+                        this.msjSuccess = true;
+                        this.cleanData();
+                        this.update = false;
+                    },
+                    function(response){
+                        this.msjSuccess = true;
+                        this.formErrors = response.data;
+                        this.update = false;
+                });
+            }else{
+                //Nuevo Registro
+                this.$http.post('/admin/cliente', getData).then(
+                    function(){
+                        this.msjSuccess = true;
+                        this.cleanData();
+                    },
+                    function(response){
+                        this.msjSuccess = false;
+                        this.formErrors = response.data;
+                });
+            }
         },
 
         buscarCliente: function(){
@@ -55,6 +74,7 @@ new Vue({
                 function(response){
                     this.result = response.data;
                     this.asignarValores(this.result);
+                    this.update = true;
                 },
                 function(response){
                     console.log(response.data);
@@ -64,6 +84,7 @@ new Vue({
 
         asignarValores: function(item){
             //Cusmoter Data
+            this.myData.id = item.id;
             this.myData.cedula_rif = item.cedula_rif;
             this.myData.nombre = item.nombre;
             this.myData.domicilio = item.domicilio;
@@ -82,7 +103,7 @@ new Vue({
 
         cleanData: function(){
             this.myData = {
-                cedula_rif: '', nombre: '', domicilio: '',
+                id: '', cedula_rif: '', nombre: '', domicilio: '',
                 telefono: '', fax: '', email: '', tipo_cte: 'contado',
                 contacto_c1: '', cargo_dpto_c1: '', telefono_c1: '',
                 contacto_c2: '', cargo_dpto_c2: '', telefono_c2: '',

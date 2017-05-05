@@ -132,6 +132,23 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $customer = Customer::find($id);
+        $customer->cedula_rif = $request->cedula_rif;
+        $customer->nombre = $request->nombre;
+        $customer->domicilio = $request->domicilio;
+        $customer->telefono = $request->telefono;
+        $customer->fax = $request->fax;
+        $customer->email = $request->email;
+        $customer->tipo_cte = $request->tipo_cte;
+        $customer->save();
+        $customer->contact->contacto_c2 = $request->contacto_c2;
+        $customer->contact->cargo_dpto_c2 = $request->cargo_dpto_c2;
+        $customer->contact->telefono_c2 = $request->telefono_c2;
+        $customer->contact->contacto_c2 = $request->contacto_c2;
+        $customer->contact->cargo_dpto_c2 = $request->cargo_dpto_c2;
+        $customer->contact->telefono_c2 = $request->telefono_c2;
+        $customer->contact->save();
+
     }
 
     /**

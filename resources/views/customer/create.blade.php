@@ -7,7 +7,7 @@
     <!-- Mensaje -->
     <div v-if="mostrarMensaje" class="alert alert-success alert-dismissable">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" @click="cerrarMensaje">&times;</button>
-        Datos Registrado.
+        Datos Guardado.
     </div>
 
     <!-- Formulario para Buscar Clientes -->
@@ -85,13 +85,25 @@
                 </div>
             </div>
 
-            <div class="col-md-12 text-center form-group">
+            <div class="col-md-12 form-group">
                 <h3>Tipo de Cliente</h3>
+                <label for="">No Credito: </label>
                 <label class="radio-inline">
                   <input type="radio" name="tipo_cte" value="contado" v-model="myData.tipo_cte" checked> Contado
                 </label>
+                <br>
+                <label for="">Credito: </label>
                 <label class="radio-inline">
-                  <input type="radio" name="tipo_cte" value="credito" v-model="myData.tipo_cte"> Credito
+                  <input type="radio" name="tipo_cte" value="7dias" v-model="myData.tipo_cte"> 7 días
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="tipo_cte" value="15dias" v-model="myData.tipo_cte"> 15 días
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="tipo_cte" value="30dias" v-model="myData.tipo_cte"> 30 días
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="tipo_cte" value="45dias" v-model="myData.tipo_cte"> 45 días
                 </label>
             </div>
 
