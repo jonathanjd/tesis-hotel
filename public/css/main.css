@@ -1,9 +1,21 @@
+#main {
+  display: none;
+}
+
+.background-danger {
+  background-color: #d9534f;
+}
+
 .background-gray {
   background-color: #e7e7e7;
 }
 
 .background-rojo {
   background-color: #b00700;
+}
+
+.text-white {
+  color: white;
 }
 
 .text-title-primary {

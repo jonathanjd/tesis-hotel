@@ -3,16 +3,25 @@
 @section('title-section','Crear Cliente')
 @section('content')
 
-<div class="container">
+
+<div id="cargando" class="container" v-bind:style="css.progressVisible">
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">Cargandoo...</span>
+        </div>
+    </div>
+</div>
+
+<div id="main" class="container" v-bind:style="css.mainVisible">
     <!-- Mensaje -->
-    <div v-if="mostrarMensaje" class="alert alert-success alert-dismissable">
+    <div v-if="mostrarMensaje" v-bind:class="mensaje.type">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true" @click="cerrarMensaje">&times;</button>
-        Datos Guardado.
+        @{{ mensaje.title }}.
     </div>
 
     <!-- Formulario para Buscar Clientes -->
     <div>
-        <form class="form-horizonta well" method="get" @submit.prevent="buscarCliente">
+        <form class="form-horizonta well row" method="get" @submit.prevent="buscarCliente">
         <fieldset>
             <legend>Buscar Clientes</legend>
             <div>
@@ -20,7 +29,7 @@
                     <input class="form-control" type="text" name="buscar" v-model="buscar" value="">
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-success" type="submit" name="button">Buscar</button>
+                    <button v-bind:class="buttonBuscarActive? buttonBuscar.active:buttonBuscar.disabled" v-bind:type="buttonBuscarActive? buttonBuscar.submit:buttonBuscar.button" name="button">Buscar</button>
                 </div>
             </div>
         </fieldset>
@@ -29,7 +38,12 @@
 
     <!-- Formulario Clientes -->
     <div>
-        <form class="form-horizonta well" method="post" @submit.prevent="onSubmitForm" id="form">
+        <div class="progress" v-bind:style="css.ajaxProcesoVisible">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">Cargandoo...</span>
+            </div>
+        </div>
+        <form class="form-horizonta well row" method="post" @submit.prevent="onSubmitForm" id="form">
         <fieldset>
 
             <legend>Datos del Clientes</legend>
@@ -162,20 +176,24 @@
                 </div>
             </div>
 
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <button class="btn btn-success" type="submit" name="button">Guardar</button>
-                <button class="btn btn-danger disabled" type="submit" name="button">Eliminar</button>
+                <button v-bind:class="buttonDelete.modo" type="button" data-toggle="modal" v-bind:data-target="buttonDelete.modal" name="button">Eliminar</button>
+                <button class="btn btn-primary pull-right" type="button" name="button" @click="cleanData"><i class="fa fa-eraser"></i></button>
             </div>
+
 
         </fieldset>
         </form>
+        <div class="progress" v-bind:style="css.ajaxProcesoVisible">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">Cargandoo...</span>
+            </div>
+        </div>
     </div>
 
-    <pre>
-        @{{ $data }}
-    </pre>
 </div>
-
+@include('customer.delete')
 @endsection
 @section('script')
     {!! Html::script('js/vue.js') !!}

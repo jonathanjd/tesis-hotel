@@ -1,5 +1,14 @@
 $color-gray: #e7e7e7;
 $color-rojo: #b00700;
+$color-danger: #d9534f;
+
+#main {
+    display: none;
+}
+
+.background-danger {
+    background-color: $color-danger;
+}
 
 .background-gray {
     background-color: $color-gray;
@@ -7,6 +16,10 @@ $color-rojo: #b00700;
 
 .background-rojo {
     background-color: $color-rojo;
+}
+
+.text-white {
+    color: white;
 }
 
 .text-title-primary {

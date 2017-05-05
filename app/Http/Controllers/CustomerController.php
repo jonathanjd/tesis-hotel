@@ -44,7 +44,13 @@ class CustomerController extends Controller
     {
         # code...
         $customer = Customer::buscarCustomer($cedula);
-        return response()->json($customer);
+        if($customer->exists()){
+            return response()->json($customer);
+        }else{
+            $mensaje = false;
+            return response()->json($mensaje);
+        }
+
     }
 
     /**
@@ -132,13 +138,25 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,[
+            'nombre' => 'required|max:25',
+            'domicilio' => 'required|max:25',
+            'telefono' => 'required|max:15',
+            'fax' => 'required|max:15',
+            'tipo_cte' => 'required',
+            'contacto_c1' => 'required|max:25',
+            'cargo_dpto_c1' => 'required|max:25',
+            'telefono_c1' => 'required|max:15',
+            'contacto_c2' => 'max:25',
+            'cargo_dpto_c2' => 'max:25',
+            'telefono_c2' => 'max:15',
+        ]);
+
         $customer = Customer::find($id);
-        $customer->cedula_rif = $request->cedula_rif;
         $customer->nombre = $request->nombre;
         $customer->domicilio = $request->domicilio;
         $customer->telefono = $request->telefono;
         $customer->fax = $request->fax;
-        $customer->email = $request->email;
         $customer->tipo_cte = $request->tipo_cte;
         $customer->save();
         $customer->contact->contacto_c2 = $request->contacto_c2;
@@ -160,5 +178,7 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+        $customer = Customer::find($id);
+        $customer->delete();
     }
 }
