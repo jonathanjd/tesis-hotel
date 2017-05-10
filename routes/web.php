@@ -25,7 +25,8 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
 
     Route::get('/cliente/buscar/{cedula}','CustomerController@buscar');
     Route::resource('cliente', 'CustomerController');
-
     Route::resource('contacto', 'ContactController');
+    Route::resource('user', 'UserController');
+    Route::resource('productService', 'ProductServiceController');
 
 });

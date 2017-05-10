@@ -82,7 +82,7 @@
                     <a href="#"><i class="fa fa-calendar-check-o fa-fw"></i> Coordinar Eventos<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Registrar Productos y Servicios</a>
+                            <a href="{{ route('productService.index') }}">Registrar Productos y Servicios</a>
                         </li>
                         <li>
                             <a href="#">Generar Ordenes Servicios</a>
@@ -97,7 +97,7 @@
                     <a href="#"><i class="fa fa-cog fa-fw"></i> Administrar Sistema<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Crear Usuario</a>
+                            <a href="{{ route('user.index') }}">Crear Usuario</a>
                         </li>
                         <li>
                             <a href="#">Estado de Usuario</a>
