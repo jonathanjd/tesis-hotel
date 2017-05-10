@@ -28,5 +28,6 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('contacto', 'ContactController');
     Route::resource('user', 'UserController');
     Route::resource('productService', 'ProductServiceController');
+    Route::resource('presupuesto', 'PresupuestoController');
 
 });
