@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+
 class PresupuestoController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class PresupuestoController extends Controller
     public function index()
     {
         //
-        return view('presupuesto.index');
+        $now = Carbon::today();
+        return view('presupuesto.index')->with('now', $now);
     }
 
     /**

@@ -95,21 +95,21 @@
                 <div class="panel-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Codigo de Presupuesto:</label>
-                            <div class="col-md-6">
+                            <label for="" class="control-label col-md-5">Codigo de Presupuesto:</label>
+                            <div class="col-md-7">
                                 <input class="form-control" type="text" name="" value="">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Fecha de Emisión:</label>
-                            <div class="col-md-6">
-                                <input class="form-control" type="date" name="" value="">
+                            <label for="" class="control-label col-md-5">Fecha de Emisión:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="date" name="" value="{{ $now->toDateString() }}">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Fecha de Confirmación:</label>
-                            <div class="col-md-6">
-                                <input class="form-control" type="date" name="" value="">
+                            <label for="" class="control-label col-md-5">Fecha de Confirmación:</label>
+                            <div class="col-md-7">
+                                <input class="form-control" type="date" name="" value="{{ $now->toDateString() }}">
                             </div>
                         </div><!-- .form-group -->
                     </form><!-- .form-horizontal -->
@@ -175,13 +175,13 @@
                                 <div class="form-group">
                                     <label for="" class="control-label col-md-4">Desde:</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="Date" name="" value="">
+                                        <input class="form-control" type="Date" name="" value="{{ $now->toDateString() }}">
                                     </div>
                                 </div><!-- .form-group -->
                                 <div class="form-group">
                                     <label for="" class="control-label col-md-4">Hasta:</label>
                                     <div class="col-md-8">
-                                        <input class="form-control" type="Date" name="" value="">
+                                        <input class="form-control" type="Date" name="" value="{{ $now->toDateString() }}">
                                     </div>
                                 </div><!-- .form-group -->
                             </div><!-- .col-md-12 -->
@@ -202,20 +202,20 @@
                 <div class="panel-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Sub Total:</label>
-                            <div class="col-md-6">
+                            <label for="" class="control-label col-md-5">Sub Total:</label>
+                            <div class="col-md-7">
                                 <input class="form-control" type="text" name="" value="">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Iva 12%:</label>
-                            <div class="col-md-6">
+                            <label for="" class="control-label col-md-5">Iva 12%:</label>
+                            <div class="col-md-7">
                                 <input class="form-control" type="text" name="" value="">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
-                            <label for="" class="control-label col-md-6">Total General:</label>
-                            <div class="col-md-6">
+                            <label for="" class="control-label col-md-5">Total General:</label>
+                            <div class="col-md-7">
                                 <input class="form-control" type="text" name="" value="">
                             </div>
                         </div><!-- .form-group -->
