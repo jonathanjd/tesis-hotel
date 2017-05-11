@@ -83,7 +83,7 @@
                             <a href="#">Generar Ordenes Servicios</a>
                         </li>
                         <li>
-                            <a href="#">Generar Cronograma</a>
+                            <a href="{{ route('cronograma') }}">Generar Cronograma</a>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->
