@@ -53,7 +53,7 @@
                             <a href="{{ route('cliente.create') }}">Registrar Clientes</a>
                         </li>
                         <li>
-                            <a href="#">Consultar Disponibilidad</a>
+                            <a href="{{ route('disponibilidad') }}">Consultar Disponibilidad</a>
                         </li>
                         <li>
                             <a href="{{ route('presupuesto.index') }}">Gestionar Presupuesto</a>

@@ -22,7 +22,7 @@ Route::get('/home', 'HomeController@index');
 Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
 
     Route::get('/', 'AdminController@index')->name('admin');
-
+    Route::get('disponibilidad', 'DisponibilidadController@index')->name('disponibilidad');
     Route::get('/cliente/buscar/{cedula}','CustomerController@buscar');
     Route::resource('cliente', 'CustomerController');
     Route::resource('contacto', 'ContactController');
