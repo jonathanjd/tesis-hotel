@@ -80,7 +80,7 @@
                             <a href="{{ route('productService.index') }}">Registrar Productos y Servicios</a>
                         </li>
                         <li>
-                            <a href="#">Generar Ordenes Servicios</a>
+                            <a href="{{ route('ordenServicio') }}">Generar Ordenes Servicios</a>
                         </li>
                         <li>
                             <a href="{{ route('cronograma') }}">Generar Cronograma</a>

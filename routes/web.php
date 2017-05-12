@@ -23,6 +23,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
 
     Route::get('/', 'AdminController@index')->name('admin');
     Route::get('disponibilidad', 'DisponibilidadController@index')->name('disponibilidad');
+    Route::get('orderServicio', 'OrderServicioController@index')->name('ordenServicio');
     Route::get('cronograma', 'CronogramaController@index')->name('cronograma');
     Route::get('/cliente/buscar/{cedula}','CustomerController@buscar');
     Route::resource('cliente', 'CustomerController');
