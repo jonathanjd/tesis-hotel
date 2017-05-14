@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Presupuesto')
+@section('style')
+
+@endsection
 @section('title-section','Gestionar Presupuesto')
 @section('content')
 
@@ -229,14 +232,14 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-body text-center">
-                    <button class="btn btn-primary"><i class="fa fa-shopping-basket"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-folder-open"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-home"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-trash"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-home"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-check"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-print"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-close"></i></button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#cargar"><i class="fa fa-shopping-basket fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-folder-open fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-save fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-trash fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-home fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-check fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-print fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-close fa-2x"></i></button>
                 </div><!-- panel-body -->
             </div><!-- panel panel-primary -->
         </div><!-- col-md-12 -->
@@ -272,6 +275,9 @@
         <!-- TABLA END -->
 
     </div><!-- .row -->
+    <!-- MODAL START -->
+    @include('presupuesto.cargar')
+    <!-- MODAL END -->
 </div><!-- .container -->
 
 @endsection
