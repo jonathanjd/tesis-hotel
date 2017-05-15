@@ -36,8 +36,17 @@
 			</div><!-- .COL-MD-12 -->
 		</div><!-- .ROW -->
 	</div><!-- .CONTAINER -->
+	<pre>
+		@{{ $data }}
+	</pre>
 	<!-- MODAL -->
 	@include('productService.deleteProducto')
 	@include('productService.deleteServicio')
 	@include('productService.deleteEvento')
+@endsection
+@section('script')
+	{!! Html::script('js/vue.js') !!}
+    {!! Html::script('js/vue-resource.js') !!}
+    {!! Html::script('js/admin/evento-vue.js') !!}
+
 @endsection

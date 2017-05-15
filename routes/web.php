@@ -31,5 +31,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('user', 'UserController');
     Route::resource('productService', 'ProductServiceController');
     Route::resource('presupuesto', 'PresupuestoController');
+    Route::get('evento/autoIncrementoEvento','EventoController@autoIncrementoEvento');
+    Route::resource('evento', 'EventoController');
 
 });
