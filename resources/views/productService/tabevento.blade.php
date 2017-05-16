@@ -29,7 +29,7 @@
         </table><!-- .table table-hover table-bordered -->
     </div><!-- .table-responsive -->
     <div>
-        <form class="form-horizontal" @click="onSubmitFormEventoBuscar">
+        <form class="form-horizontal">
                 <div class="form-group">
                     <div class="radio col-md-4">
                         <label for="todo">
@@ -52,12 +52,12 @@
                 </div><!-- .form-group -->
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input type="text" class="form-control">
+                        <input type="text" v-model="formEventoBuscar.text" class="form-control" value="">
                     </div><!-- .col-md-12 -->
                 </div><!-- .form-group -->
                 <div class="form-group">
                     <div class="col-md-12">
-                        <button class="btn btn-primary btn-block">Buscar</button>
+                        <button type="button" class="btn btn-primary btn-block" @click="onSubmitFormEventoBuscar">Buscar</button>
                     </div><!-- .col-md-12 -->
                 </div><!-- .form-group -->
         </form><!-- .form-horizontal -->

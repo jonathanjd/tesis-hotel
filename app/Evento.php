@@ -33,4 +33,18 @@ class Evento extends Model
         }
 
     }
+
+    public function scopeBuscarNombreEvento($query, $value)
+    {
+        # code...
+        return $query->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoEvento($query, $value)
+    {
+        # code...
+        return $query->where('codigoevento','like', $value)->get();
+    }
+
+
 }

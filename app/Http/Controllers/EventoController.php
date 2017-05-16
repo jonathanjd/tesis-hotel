@@ -110,11 +110,24 @@ class EventoController extends Controller
 
     }
 
-
     public function autoIncrementoEvento()
     {
         # code...
         $evento = Evento::autoIncrementoEvento();
         return response()->json($evento);
+    }
+
+    public function buscarNombreEvento($value)
+    {
+        # code...
+        $response = Evento::buscarNombreEvento($value);
+        return response()->json($response);
+    }
+
+    public function buscarCodigoEvento($value)
+    {
+        # code...
+        $response = Evento::buscarCodigoEvento($value);
+        return response()->json($response);
     }
 }

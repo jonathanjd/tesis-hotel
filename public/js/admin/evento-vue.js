@@ -28,6 +28,7 @@ new Vue({
 
         formEventoBuscar: {
             picked: 'todo',
+            text: '',
         },
 
         evento: {
@@ -117,6 +118,27 @@ new Vue({
 
         getListEvento: function(){
             this.$http.get('/admin/evento').then(
+                function(response){
+                    this.evento.listEvento = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        getBuscarNombre: function(){
+            this.$http.get('/admin/evento/buscarNombreEvento/' + this.formEventoBuscar.text).then(
+                function(response){
+                    this.evento.listEvento = response.data;
+
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        getBuscarCodigo: function(){
+            this.$http.get('/admin/evento/buscarCodigoEvento/' + this.formEventoBuscar.text).then(
                 function(response){
                     this.evento.listEvento = response.data;
                 },
@@ -252,9 +274,15 @@ new Vue({
             if (this.formEvento.categoria == 'evento') {
                 if (this.formEventoBuscar.picked == 'todo') {
 
+                    this.getListEvento();
+
                 }else if (this.formEventoBuscar.picked == 'codigo') {
 
+                    this.getBuscarCodigo();
+
                 }else if (this.formEventoBuscar.picked == 'nombre') {
+                    console.log('Nombre');
+                    this.getBuscarNombre();
 
                 }
             }
