@@ -16,7 +16,7 @@ class SalonController extends Controller
     public function index()
     {
         //
-        $salones = ProductoServicio::orderBy('id','DESC')->get();
+        $salones = ProductoServicio::orderBy('id','DESC')->where('categoria', 'salones')->get();
         return response()->json($salones);
     }
 

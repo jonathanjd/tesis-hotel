@@ -26,11 +26,28 @@ class ProductoServicio extends Model
     public function scopeBuscarCodSalon($query)
     {
         # code...
-        return $query
-            ->select('id')
-            ->orderBy('id', 'DESC')
-            ->where('categoria','salones')
-            ->first();
+        return $query->where('categoria','salones');
+          
+    }
+
+    public function scopeBuscarCodMontaje($query)
+    {
+        # code...
+        return $query->where('categoria','montaje');
+    }
+
+    public static function autoIncrementoMontaje()
+    {
+        # code...
+        $codigo = ProductoServicio::buscarCodMontaje();
+
+        if ($codigo->count() > 0) {
+            # code...
+            return $codigo->count() + 1;
+        }else{
+            return $codigo = 1;
+        }
+
     }
 
     public static function autoIncrementoSalon()
@@ -38,9 +55,9 @@ class ProductoServicio extends Model
         # code...
         $codigo = ProductoServicio::buscarCodSalon();
 
-        if ($codigo->exists()) {
+        if ($codigo->count() > 0) {
             # code...
-            return $codigo->id + 1;
+            return $codigo->count() + 1;
         }else{
             return $codigo = 1;
         }
@@ -57,5 +74,17 @@ class ProductoServicio extends Model
     {
         # code...
         return $query->where('categoria','salones')->where('codigops','like', $value)->get();
+    }
+
+    public function scopeBuscarNombreMontaje($query, $value)
+    {
+        # code...
+        return $query->where('categoria','montaje')->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoMontaje($query, $value)
+    {
+        # code...
+        return $query->where('categoria','montaje')->where('codigops','like', $value)->get();
     }
 }

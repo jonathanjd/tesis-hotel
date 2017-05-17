@@ -14,7 +14,7 @@
                     <th>Precio</th>
                     <th>Acciones</th>
                 </tr>
-                <tr v-else>
+                <tr v-if="formEvento.categoria == 'montaje'">
                     <th>Codigo</th>
                     <th>Nombre</th>
                     <th>Precio</th>
@@ -35,6 +35,17 @@
                     <td>@{{ item.codigops }}</td>
                     <td>@{{ item.nombre }}</td>
                     <td>@{{ item.precio }}</td>
+                    <td>
+                        <button class="btn btn-warning" @click="eventoEdit(item)"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-danger" @click="eventoDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-evento"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr v-if="formEvento.categoria == 'montaje'" v-for="item in montaje.listMontaje">
+                    <td>@{{ item.codigops }}</td>
+                    <td>@{{ item.nombre }}</td>
+                    <td>@{{ item.precio }}</td>
+                    <td>@{{ item.tipo_montajes[0].tipomontaje}}</td>
+
                     <td>
                         <button class="btn btn-warning" @click="eventoEdit(item)"><i class="fa fa-pencil"></i></button>
                         <button class="btn btn-danger" @click="eventoDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-evento"><i class="fa fa-trash"></i></button>
@@ -126,8 +137,8 @@
                 </select><!-- .form-control -->
                 <select v-else class="form-control" v-model="formEvento.tipo">
                     <option disabled value="">Seleccione</option>
-                    <option>Pequeño</option>
-                    <option>Grande</option>
+                    <option value="pequeño">Pequeño</option>
+                    <option value="grande">Grande</option>
                 </select><!-- .form-control -->
             </div>
         </div><!-- .form-group -->

@@ -7,8 +7,8 @@
                 </div><!-- modal-header -->
                 <div class="modal-body">
                     <p><strong>Deseas eliminar a:</strong> @{{ formEventoDelete.nombre }}</p>
-                    <form @click.prevent="onSubmitFormEventoDestroy">
-                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Eliminar</button>
+                    <form>
+                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" @click.prevent="onSubmitFormEventoDestroy">Eliminar</button>
                         <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Cerrar</button>
                     </form>
                 </div><!-- modal-body -->

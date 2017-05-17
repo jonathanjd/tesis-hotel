@@ -24,6 +24,7 @@ new Vue({
             codigo: '',
             nombre: '',
             precio: '',
+            tipo: '',
             existe: false,
         },
 
@@ -40,6 +41,11 @@ new Vue({
         salon: {
             codigoSalon: '',
             listSalon: [],
+        },
+
+        montaje: {
+            codigoMontaje: '',
+            listMontaje: [],
         },
 
         mensajeEvento: {
@@ -71,7 +77,7 @@ new Vue({
                     return false;
                 }
             }else if (this.formEvento.categoria == 'montaje') {
-                if (this.formEvento.nombre != '' && this.formEvento.precio != '') {
+                if (this.formEvento.nombre != '' && this.formEvento.precio != '' && this.formEvento.tipo != '') {
                     return true;
                 }else{
                     return false;
@@ -108,6 +114,51 @@ new Vue({
 
     methods: {
 
+
+        //Codigo Montaje
+        getCodigoMontaje: function(){
+            this.$http.get('/admin/montaje/autoIncrementoMontaje').then(
+                function(response){
+                    this.montaje.codigoMontaje = response.data;
+                    this.formEvento.codigo = 'CM00' + this.montaje.codigoMontaje;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Listar Montaje
+        getListMontaje: function(){
+            this.$http.get('/admin/montaje').then(
+                function(response){
+                    this.montaje.listMontaje = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Codigo Montaje
+        getBuscarCodigoMontaje: function(){
+            this.$http.get('/admin/montaje/buscarCodigoMontaje/' + this.formEventoBuscar.text).then(
+                function(response){
+                    this.montaje.listMontaje = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Codigo Montaje
+        getBuscarNombreMontaje: function(){
+            this.$http.get('/admin/montaje/buscarNombreMontaje/' + this.formEventoBuscar.text).then(
+                function(response){
+                    this.montaje.listMontaje = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
 
         //Codigo Salon
         getCodigoSalon: function(){
@@ -211,13 +262,16 @@ new Vue({
             }else if (this.formEvento.categoria == 'salones') {
                 this.getCodigoSalon();
                 this.getListSalon();
+            }else if (this.formEvento.categoria == 'montaje') {
+                this.getCodigoMontaje();
+                this.getListMontaje();
             }
 
         },
 
 
         //***************************************
-        //Save/Update Evento
+        //Save/Update Evento-Salon-Montaje
         //***************************************
         onSubmitFormEvento: function(){
             //Proceso Evento
@@ -323,8 +377,65 @@ new Vue({
                         });
                 }
 
-            }
+            }//Fin Proceo Salon
 
+            //Proceo Montaje
+            if (this.formEvento.categoria == 'montaje') {
+
+                if (this.formEventoEdit.existe){
+                     //Actualizar Montaje
+                    var myData = {
+                        id: this.formEventoEdit.id,
+                        codigo: this.formEventoEdit.codigo,
+                        nombre: this.formEvento.nombre,
+                        precio: this.formEvento.precio,
+                        tipo: this.formEvento.tipo,
+                    }
+                    this.$http.put('/admin/montaje/' + myData.id, myData).then(
+                        function(){
+                            this.mensajeEvento.success = true;
+                            this.mensajeEvento.type = 'alert alert-success alert-dismissable';
+                            this.mensajeEvento.title = 'Datos Actualizado';
+                            this.formEvento.nombre = '';
+                            this.formEvento.precio = '';
+                            this.formEvento.codigo = this.getCodigoMontaje();
+                            this.formEventoEdit.id = '';
+                            this.formEventoEdit.codigo = '';
+                            this.formEventoEdit.nombre = '';
+                            this.formEventoEdit.precio = '';
+                            this.formEventoEdit.existe = false;
+                            this.getListMontaje();
+                        },
+                        function(){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }else{
+                    //Guardar Montaje
+                    var myData = {
+                    codigo: this.formEvento.codigo,
+                    categoria: this.formEvento.categoria,
+                    nombre: this.formEvento.nombre,
+                    precio: this.formEvento.precio,
+                    tipo: this.formEvento.tipo,
+                }
+                this.$http.post('/admin/montaje', myData).then(
+                    function(){
+                        this.mensajeEvento.success = true;
+                        this.mensajeEvento.type = 'alert alert-success alert-dismissable';
+                        this.mensajeEvento.title = 'Datos Guardado';
+                        this.formEvento.nombre = '';
+                        this.formEvento.precio = '';
+                        this.formEvento.codigo = this.getCodigoMontaje();
+                        this.getListMontaje();
+                    },
+                    function(response){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+                }
+                
+
+
+            }//Fin Proceo Montaje
 
         },
 
@@ -374,6 +485,30 @@ new Vue({
                         console.log('RESPONSE ERROR AJAX');
                     });
             }
+
+            //Editar Montaje
+            if (this.formEvento.categoria == 'montaje') {
+                this.formEventoEdit.id = item.id;
+                this.formEventoEdit.codigo = item.codigops;
+                this.formEventoEdit.nombre = item.nombre;
+                this.formEventoEdit.precio = item.precio;
+                this.formEventoEdit.tipo = item.tipo_montajes[0].tipomontaje;
+                this.$http.get('/admin/salon/' + this.formEventoEdit.id + '/edit').then(
+                    function(response){
+                        if (response.data.existe) {
+                            this.formEventoEdit.existe = true;
+                            this.formEvento.codigo = this.formEventoEdit.codigo;
+                            this.formEvento.nombre = this.formEventoEdit.nombre;
+                            this.formEvento.precio = this.formEventoEdit.precio;
+                            this.formEvento.tipo = this.formEventoEdit.tipo;
+                        }else{
+                            this.formEventoEdit.existe = false;
+                        }
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
         },
 
         //**********************
@@ -413,16 +548,35 @@ new Vue({
                         console.log('RESPONSE ERROR AJAX');
                     });
             }
+
+            //Eliminar Montaje
+            if (this.formEvento.categoria == 'montaje') {
+                var getId = this.formEventoDelete.id;
+                this.$http.delete('/admin/montaje/' + getId).then(
+                    function(){
+                        this.mensajeEvento.success = true;
+                        this.mensajeEvento.type = 'alert alert-success alert-dismissable';
+                        this.mensajeEvento.title = 'Datos Eliminado';
+                        this.formEventoDelete.id = '';
+                        this.formEventoDelete.nombre = '';
+                        this.getCodigoMontaje();
+                        this.getListMontaje();
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
         },
 
-        //Delete Evento/Salon
+        //Delete Evento/Salon/Montaje
         eventoDelete: function(id, nombre){
             this.formEventoDelete.id = id;
             this.formEventoDelete.nombre = nombre;
         },
 
-        //Buscar Evento
+        //Buscar
         onSubmitFormEventoBuscar: function(){
+            //Buscar Evento
             if (this.formEvento.categoria == 'evento') {
                 if (this.formEventoBuscar.picked == 'todo') {
 
@@ -438,7 +592,7 @@ new Vue({
 
                 }
             }
-
+            //Buscar Salon
             if (this.formEvento.categoria == 'salones') {
                 if (this.formEventoBuscar.picked == 'todo') {
 
@@ -451,6 +605,22 @@ new Vue({
                 }else if (this.formEventoBuscar.picked == 'nombre') {
 
                     this.getBuscarNombreSalon();
+
+                }
+            }
+            //Buscar Montaje
+            if (this.formEvento.categoria == 'montaje') {
+                if (this.formEventoBuscar.picked == 'todo') {
+
+                    this.getListMontaje();
+
+                }else if (this.formEventoBuscar.picked == 'codigo') {
+
+                    this.getBuscarCodigoMontaje();
+
+                }else if (this.formEventoBuscar.picked == 'nombre') {
+
+                    this.getBuscarNombreMontaje();
 
                 }
             }

@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ProductoServicio;
+
+use App\TipoMontaje;
+
 class MontajeController extends Controller
 {
     /**
@@ -14,6 +18,8 @@ class MontajeController extends Controller
     public function index()
     {
         //
+        $montaje = ProductoServicio::with('tipoMontajes')->orderBy('id','DESC')->where('categoria', 'montaje')->get();
+        return response()->json($montaje);
     }
 
     /**
@@ -35,6 +41,18 @@ class MontajeController extends Controller
     public function store(Request $request)
     {
         //
+        $montaje = new ProductoServicio();
+        $montaje->codigops = $request->codigo;
+        $montaje->categoria = $request->categoria;
+        $montaje->nombre = $request->nombre;
+        $montaje->precio = $request->precio;
+        $montaje->save();
+
+        $tipoMontaje = new TipoMontaje();
+        $tipoMontaje->producto_servicio_id = $montaje->id;
+        $tipoMontaje->tipomontaje = $request->tipo;
+        $tipoMontaje->save();
+
     }
 
     /**
@@ -57,6 +75,19 @@ class MontajeController extends Controller
     public function edit($id)
     {
         //
+        if (ProductoServicio::find($id)) {
+            # code...
+            $data = [
+                'existe' => true,
+            ];
+        }else {
+            # code...
+            $data = [
+                'existe' => false,
+            ];
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -69,6 +100,15 @@ class MontajeController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $montaje = ProductoServicio::find($id);
+        $montaje->nombre = $request->nombre;
+        $montaje->precio = $request->precio;
+        $montaje->save();
+
+        $tipoMontaje = TipoMontaje::find($montaje->tipoMontajes[0]->id);
+        $tipoMontaje->tipomontaje = $request->tipo;
+        $tipoMontaje->save();
+
     }
 
     /**
@@ -80,5 +120,29 @@ class MontajeController extends Controller
     public function destroy($id)
     {
         //
+        $montaje = ProductoServicio::find($id);
+        $montaje->delete();
+    }
+
+    public function autoIncrementoMontaje()
+    {
+        # code...
+        $montaje = ProductoServicio::autoIncrementoMontaje();
+        return response()->json($montaje);
+
+    }
+
+    public function buscarCodigoMontaje($value)
+    {
+        # code...
+        $response = ProductoServicio::with('tipoMontajes')->buscarCodigoMontaje($value);
+        return response()->json($response);
+    }
+
+    public function buscarNombreMontaje($value)
+    {
+        # code...
+        $response = ProductoServicio::with('tipoMontajes')->buscarNombreMontaje($value);
+        return response()->json($response);
     }
 }

@@ -39,5 +39,9 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('salon/buscarCodigoSalon/{value}','SalonController@buscarCodigoSalon');
     Route::get('salon/autoIncrementoSalon','SalonController@autoIncrementoSalon');
     Route::resource('salon', 'SalonController');
+    Route::get('montaje/buscarNombreMontaje/{value}','MontajeController@buscarNombreMontaje');
+    Route::get('montaje/buscarCodigoMontaje/{value}','MontajeController@buscarCodigoMontaje');
+    Route::get('montaje/autoIncrementoMontaje','MontajeController@autoIncrementoMontaje');
+    Route::resource('montaje', 'MontajeController');
 
 });
