@@ -22,4 +22,40 @@ class ProductoServicio extends Model
     {
         return $this->hasMany('App\InventarioEquipo');
     }
+
+    public function scopeBuscarCodSalon($query)
+    {
+        # code...
+        return $query
+            ->select('id')
+            ->orderBy('id', 'DESC')
+            ->where('categoria','salones')
+            ->first();
+    }
+
+    public static function autoIncrementoSalon()
+    {
+        # code...
+        $codigo = ProductoServicio::buscarCodSalon();
+
+        if ($codigo->exists()) {
+            # code...
+            return $codigo->id + 1;
+        }else{
+            return $codigo = 1;
+        }
+
+    }
+
+    public function scopeBuscarNombreSalon($query, $value)
+    {
+        # code...
+        return $query->where('categoria','salones')->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoSalon($query, $value)
+    {
+        # code...
+        return $query->where('categoria','salones')->where('codigops','like', $value)->get();
+    }
 }

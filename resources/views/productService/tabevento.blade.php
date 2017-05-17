@@ -8,6 +8,12 @@
                     <th>Nombre</th>
                     <th>Acciones</th>
                 </tr>
+                <tr v-if="formEvento.categoria == 'salones'">
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Acciones</th>
+                </tr>
                 <tr v-else>
                     <th>Codigo</th>
                     <th>Nombre</th>
@@ -20,6 +26,15 @@
                 <tr v-if="formEvento.categoria == 'evento'" v-for="item in evento.listEvento">
                     <td>@{{ item.codigoevento }}</td>
                     <td>@{{ item.nombre }}</td>
+                    <td>
+                        <button class="btn btn-warning" @click="eventoEdit(item)"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-danger" @click="eventoDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-evento"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                <tr v-if="formEvento.categoria == 'salones'" v-for="item in salon.listSalon">
+                    <td>@{{ item.codigops }}</td>
+                    <td>@{{ item.nombre }}</td>
+                    <td>@{{ item.precio }}</td>
                     <td>
                         <button class="btn btn-warning" @click="eventoEdit(item)"><i class="fa fa-pencil"></i></button>
                         <button class="btn btn-danger" @click="eventoDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-evento"><i class="fa fa-trash"></i></button>

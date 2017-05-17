@@ -35,5 +35,9 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('evento/buscarCodigoEvento/{value}','EventoController@buscarCodigoEvento');
     Route::get('evento/autoIncrementoEvento','EventoController@autoIncrementoEvento');
     Route::resource('evento', 'EventoController');
+    Route::get('salon/buscarNombreSalon/{value}','SalonController@buscarNombreSalon');
+    Route::get('salon/buscarCodigoSalon/{value}','SalonController@buscarCodigoSalon');
+    Route::get('salon/autoIncrementoSalon','SalonController@autoIncrementoSalon');
+    Route::resource('salon', 'SalonController');
 
 });

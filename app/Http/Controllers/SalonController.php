@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use  App\Evento;
+use App\ProductoServicio;
 
-class EventoController extends Controller
+class SalonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +16,8 @@ class EventoController extends Controller
     public function index()
     {
         //
-        $eventos = Evento::orderBy('id','DESC')->get();
-        return response()->json($eventos);
+        $salones = ProductoServicio::orderBy('id','DESC')->get();
+        return response()->json($salones);
     }
 
     /**
@@ -39,11 +39,12 @@ class EventoController extends Controller
     public function store(Request $request)
     {
         //
-        $evento = new Evento();
-        $evento->codigoevento = $request->codigo;
-        $evento->nombre = $request->nombre;
-        $evento->save();
-
+        $salon = new ProductoServicio();
+        $salon->codigops = $request->codigo;
+        $salon->categoria = $request->categoria;
+        $salon->nombre = $request->nombre;
+        $salon->precio = $request->precio;
+        $salon->save();
     }
 
     /**
@@ -66,7 +67,7 @@ class EventoController extends Controller
     public function edit($id)
     {
         //
-        if (Evento::find($id)) {
+        if (ProductoServicio::find($id)) {
             # code...
             $data = [
                 'existe' => true,
@@ -91,9 +92,10 @@ class EventoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $evento = Evento::find($id);
-        $evento->nombre = $request->nombre;
-        $evento->save();
+        $salon = ProductoServicio::find($id);
+        $salon->nombre = $request->nombre;
+        $salon->precio = $request->precio;
+        $salon->save();
     }
 
     /**
@@ -105,31 +107,28 @@ class EventoController extends Controller
     public function destroy($id)
     {
         //
-        $evento = Evento::find($id);
-        $evento->delete();
-
+        $salon = ProductoServicio::find($id);
+        $salon->delete();
     }
 
-    public function autoIncrementoEvento()
+    public function autoIncrementoSalon()
     {
         # code...
-        $evento = Evento::autoIncrementoEvento();
-        return response()->json($evento);
+        $salon = ProductoServicio::autoIncrementoSalon();
+        return response()->json($salon);
     }
 
-    public function buscarNombreEvento($value)
+    public function buscarNombreSalon($value)
     {
         # code...
-        $response = Evento::buscarNombreEvento($value);
+        $response = ProductoServicio::buscarNombreSalon($value);
         return response()->json($response);
     }
 
-    public function buscarCodigoEvento($value)
+    public function buscarCodigoSalon($value)
     {
         # code...
-        $response = Evento::buscarCodigoEvento($value);
+        $response = ProductoServicio::buscarCodigoSalon($value);
         return response()->json($response);
     }
-
-    
 }

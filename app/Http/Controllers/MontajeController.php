@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use  App\Evento;
-
-class EventoController extends Controller
+class MontajeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +14,6 @@ class EventoController extends Controller
     public function index()
     {
         //
-        $eventos = Evento::orderBy('id','DESC')->get();
-        return response()->json($eventos);
     }
 
     /**
@@ -39,11 +35,6 @@ class EventoController extends Controller
     public function store(Request $request)
     {
         //
-        $evento = new Evento();
-        $evento->codigoevento = $request->codigo;
-        $evento->nombre = $request->nombre;
-        $evento->save();
-
     }
 
     /**
@@ -66,19 +57,6 @@ class EventoController extends Controller
     public function edit($id)
     {
         //
-        if (Evento::find($id)) {
-            # code...
-            $data = [
-                'existe' => true,
-            ];
-        }else {
-            # code...
-            $data = [
-                'existe' => false,
-            ];
-        }
-
-        return response()->json($data);
     }
 
     /**
@@ -91,9 +69,6 @@ class EventoController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $evento = Evento::find($id);
-        $evento->nombre = $request->nombre;
-        $evento->save();
     }
 
     /**
@@ -105,31 +80,5 @@ class EventoController extends Controller
     public function destroy($id)
     {
         //
-        $evento = Evento::find($id);
-        $evento->delete();
-
     }
-
-    public function autoIncrementoEvento()
-    {
-        # code...
-        $evento = Evento::autoIncrementoEvento();
-        return response()->json($evento);
-    }
-
-    public function buscarNombreEvento($value)
-    {
-        # code...
-        $response = Evento::buscarNombreEvento($value);
-        return response()->json($response);
-    }
-
-    public function buscarCodigoEvento($value)
-    {
-        # code...
-        $response = Evento::buscarCodigoEvento($value);
-        return response()->json($response);
-    }
-
-    
 }
