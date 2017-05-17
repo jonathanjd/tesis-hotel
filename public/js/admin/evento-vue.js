@@ -54,6 +54,10 @@ new Vue({
             title: '',
         },
 
+        loading: {
+            mainVisible: '',
+            progressVisible: '',
+        },
 
     },
 
@@ -110,6 +114,11 @@ new Vue({
                 return false;
             }
         },
+    },
+
+    mounted: function(){
+        this.loading.mainVisible = 'display: block;';
+        this.loading.progressVisible = 'display: none;';
     },
 
     methods: {

@@ -4,6 +4,14 @@
 @section('content')
 	<div class="container">
 		<div class="row">
+			<div id="cargando" v-bind:style="loading.progressVisible">
+				<div class="progress">
+					<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<span class="sr-only">Cargando...</span>
+					</div>
+				</div>
+			</div><!-- PROGRESS END -->
+
 			<div class="col-md-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">

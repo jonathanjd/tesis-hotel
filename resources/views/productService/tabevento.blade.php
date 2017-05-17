@@ -1,4 +1,4 @@
-<div class="col-md-6">
+<div id="main" class="col-md-6" v-bind:style="loading.mainVisible">
     <br>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
@@ -89,7 +89,7 @@
         </form><!-- .form-horizontal -->
     </div>
 </div><!-- .col-md-6 -->
-<div class="col-md-6">
+<div id="main" class="col-md-6" v-bind:style="loading.mainVisible">
     <br>
         <div v-if="mostrarMensajeEvento" v-bind:class="mensajeEvento.type" role="alert">
             <button v-on:click="cerrarMensajeEvento" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
