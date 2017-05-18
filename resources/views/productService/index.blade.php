@@ -55,6 +55,6 @@
 @section('script')
 	{!! Html::script('js/vue.js') !!}
     {!! Html::script('js/vue-resource.js') !!}
-    {!! Html::script('js/admin/evento-vue.js') !!}
+    {!! Html::script('js/admin/productoServicio-vue.js') !!}
 
 @endsection
