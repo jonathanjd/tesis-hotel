@@ -14,6 +14,8 @@ class MaterialController extends Controller
     public function index()
     {
         //
+        $materiales = ProductoServicio::orderBy('id','DESC')->where('categoria', 'material')->get();
+        return response()->json($materiales);
     }
 
     /**
@@ -35,6 +37,12 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         //
+        $material = new ProductoServicio();
+        $material->codigops = $request->codigo;
+        $material->categoria = $request->categoria;
+        $material->nombre = $request->nombre;
+        $material->precio = $request->precio;
+        $material->save();
     }
 
     /**
@@ -57,6 +65,19 @@ class MaterialController extends Controller
     public function edit($id)
     {
         //
+        if (ProductoServicio::find($id)) {
+            # code...
+            $data = [
+                'existe' => true,
+            ];
+        }else {
+            # code...
+            $data = [
+                'existe' => false,
+            ];
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -69,6 +90,10 @@ class MaterialController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $material = ProductoServicio::find($id);
+        $material->nombre = $request->nombre;
+        $material->precio = $request->precio;
+        $material->save();
     }
 
     /**
@@ -80,5 +105,28 @@ class MaterialController extends Controller
     public function destroy($id)
     {
         //
+        $material = ProductoServicio::find($id);
+        $material->delete();
+    }
+
+    public function autoIncrementoMaterial()
+    {
+        # code...
+        $material = ProductoServicio::autoIncrementoMaterial();
+        return response()->json($material);
+    }
+
+    public function buscarNombreMaterial($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarNombreMaterial($value);
+        return response()->json($response);
+    }
+
+    public function buscarCodigoMaterial($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarCodigoMaterial($value);
+        return response()->json($response);
     }
 }

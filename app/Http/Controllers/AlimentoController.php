@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ProductoServicio;
+
 class AlimentoController extends Controller
 {
     /**
@@ -14,6 +16,8 @@ class AlimentoController extends Controller
     public function index()
     {
         //
+        $alimentos = ProductoServicio::orderBy('id','DESC')->where('categoria', 'alimento')->get();
+        return response()->json($alimentos);
     }
 
     /**
@@ -35,6 +39,12 @@ class AlimentoController extends Controller
     public function store(Request $request)
     {
         //
+        $alimento = new ProductoServicio();
+        $alimento->codigops = $request->codigo;
+        $alimento->categoria = $request->categoria;
+        $alimento->nombre = $request->nombre;
+        $alimento->precio = $request->precio;
+        $alimento->save();
     }
 
     /**
@@ -57,6 +67,19 @@ class AlimentoController extends Controller
     public function edit($id)
     {
         //
+        if (ProductoServicio::find($id)) {
+            # code...
+            $data = [
+                'existe' => true,
+            ];
+        }else {
+            # code...
+            $data = [
+                'existe' => false,
+            ];
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -69,6 +92,10 @@ class AlimentoController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $alimento = ProductoServicio::find($id);
+        $alimento->nombre = $request->nombre;
+        $alimento->precio = $request->precio;
+        $alimento->save();
     }
 
     /**
@@ -80,5 +107,28 @@ class AlimentoController extends Controller
     public function destroy($id)
     {
         //
+        $alimento = ProductoServicio::find($id);
+        $alimento->delete();
+    }
+
+    public function autoIncrementoAlimento()
+    {
+        # code...
+        $alimento = ProductoServicio::autoIncrementoAlimento();
+        return response()->json($alimento);
+    }
+
+    public function buscarNombreAlimento($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarNombreAlimento($value);
+        return response()->json($response);
+    }
+
+    public function buscarCodigoAlimento($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarCodigoAlimento($value);
+        return response()->json($response);
     }
 }
