@@ -316,7 +316,7 @@ new Vue({
         },
 
         //Listar Material
-        getListBebida: function(){
+        getListMaterial: function(){
             this.$http.get('/admin/material').then(
                 function(response){
                     this.material.listMaterial = response.data;
@@ -864,7 +864,7 @@ new Vue({
         },
 
         //**************
-        //Edit Evento
+        //Edit Tab Evento
         //**************
         eventoEdit: function(item){
             //Editar Evento
@@ -935,10 +935,10 @@ new Vue({
             }
         },
 
-                //**************
-        //Edit Evento
         //**************
-        eventoEdit: function(item){
+        //Edit Tab Producto
+        //**************
+        productoEdit: function(item){
             
             //Editar Alimento
             if (this.formProducto.categoria == 'alimento') {
@@ -1136,7 +1136,7 @@ new Vue({
         },
 
         //Delete Alimento/Bebida/Material
-        eventoDeleteProducto: function(id, nombre){
+        productoDelete: function(id, nombre){
             this.formProductoDelete.id = id;
             this.formProductoDelete.nombre = nombre;
         },

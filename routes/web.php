@@ -52,10 +52,10 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('alimento/autoIncrementoAlimento','AlimentoController@autoIncrementoAlimento');
     Route::resource('alimento', 'AlimentoController');
 
-    Route::get('babida/buscarNombreBebida/{value}','BebidaController@buscarNombreBebida');
-    Route::get('babida/buscarCodigoBebida/{value}','BebidaController@buscarCodigoBebida');
-    Route::get('babida/autoIncrementoBebida','BebidaController@autoIncrementoBebida');
-    Route::resource('babida', 'BebidaController');
+    Route::get('bebida/buscarNombreBebida/{value}','BebidaController@buscarNombreBebida');
+    Route::get('bebida/buscarCodigoBebida/{value}','BebidaController@buscarCodigoBebida');
+    Route::get('bebida/autoIncrementoBebida','BebidaController@autoIncrementoBebida');
+    Route::resource('bebida', 'BebidaController');
 
     Route::get('material/buscarNombreMaterial/{value}','MaterialController@buscarNombreMaterial');
     Route::get('material/buscarCodigoMaterial/{value}','MaterialController@buscarCodigoMaterial');
