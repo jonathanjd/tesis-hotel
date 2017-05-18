@@ -503,7 +503,7 @@ new Vue({
         },
 
         //Selector de Tab Producto
-        selectEvento: function(){
+        selectProducto: function(){
 
             if (this.formProducto.categoria == 'alimento') {
                 this.getCodigoAlimento();
@@ -1136,7 +1136,7 @@ new Vue({
         },
 
         //Delete Alimento/Bebida/Material
-        eventoDelete: function(id, nombre){
+        eventoDeleteProducto: function(id, nombre){
             this.formProductoDelete.id = id;
             this.formProductoDelete.nombre = nombre;
         },
@@ -1194,7 +1194,7 @@ new Vue({
         },
 
         //Buscar Tab Producto
-        onSubmitFormEventoBuscar: function(){
+        onSubmitFormProductoBuscar: function(){
             
             //Buscar Alimento
             if (this.formProducto.categoria == 'alimento') {
