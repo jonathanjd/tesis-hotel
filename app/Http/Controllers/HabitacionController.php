@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ProductoServicio;
+
 class HabitacionController extends Controller
 {
     /**
@@ -14,6 +16,8 @@ class HabitacionController extends Controller
     public function index()
     {
         //
+        $habitaciones = ProductoServicio::orderBy('id','DESC')->where('categoria', 'habitacion')->get();
+        return response()->json($habitaciones);
     }
 
     /**
@@ -35,6 +39,12 @@ class HabitacionController extends Controller
     public function store(Request $request)
     {
         //
+        $habitacion = new ProductoServicio();
+        $habitacion->codigops = $request->codigo;
+        $habitacion->categoria = $request->categoria;
+        $habitacion->nombre = $request->nombre;
+        $habitacion->precio = $request->precio;
+        $habitacion->save();
     }
 
     /**
@@ -57,6 +67,19 @@ class HabitacionController extends Controller
     public function edit($id)
     {
         //
+        if (ProductoServicio::find($id)) {
+            # code...
+            $data = [
+                'existe' => true,
+            ];
+        }else {
+            # code...
+            $data = [
+                'existe' => false,
+            ];
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -69,6 +92,10 @@ class HabitacionController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $habitacion = ProductoServicio::find($id);
+        $habitacion->nombre = $request->nombre;
+        $habitacion->precio = $request->precio;
+        $habitacion->save();
     }
 
     /**
@@ -80,5 +107,28 @@ class HabitacionController extends Controller
     public function destroy($id)
     {
         //
+        $habitacion = ProductoServicio::find($id);
+        $habitacion->delete();
+    }
+
+    public function autoIncrementoHabitacion()
+    {
+        # code...
+        $habitacion = ProductoServicio::autoIncrementoHabitacion();
+        return response()->json($habitacion);
+    }
+
+    public function buscarNombreHabitacion($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarNombreHabitacion($value);
+        return response()->json($response);
+    }
+
+    public function buscarCodigoHabitacion($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarCodigoHabitacion($value);
+        return response()->json($response);
     }
 }
