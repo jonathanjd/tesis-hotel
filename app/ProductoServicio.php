@@ -54,6 +54,18 @@ class ProductoServicio extends Model
         return $query->where('categoria','material');
     }
 
+    public function scopeBuscarCodHabitacion($query)
+    {
+        # code...
+        return $query->where('categoria','habitacion');
+    }
+
+    public function scopeBuscarCodOtroServicio($query)
+    {
+        # code...
+        return $query->where('categoria','otroServicio');
+    }
+
     public static function autoIncrementoMontaje()
     {
         # code...
@@ -124,6 +136,34 @@ class ProductoServicio extends Model
 
     }
 
+    public static function autoIncrementoHabitacion()
+    {
+        # code...
+        $codigo = ProductoServicio::buscarCodHabitacion();
+
+        if ($codigo->count() > 0) {
+            # code...
+            return $codigo->count() + 1;
+        }else{
+            return $codigo = 1;
+        }
+
+    }
+
+    public static function autoIncrementoOtroServicio()
+    {
+        # code...
+        $codigo = ProductoServicio::buscarCodOtroServicio();
+
+        if ($codigo->count() > 0) {
+            # code...
+            return $codigo->count() + 1;
+        }else{
+            return $codigo = 1;
+        }
+
+    }
+
     public function scopeBuscarNombreSalon($query, $value)
     {
         # code...
@@ -182,5 +222,29 @@ class ProductoServicio extends Model
     {
         # code...
         return $query->where('categoria','material')->where('codigops','like', $value)->get();
+    }
+
+    public function scopeBuscarNombreHabitacion($query, $value)
+    {
+        # code...
+        return $query->where('categoria','habitacion')->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoHabitacion($query, $value)
+    {
+        # code...
+        return $query->where('categoria','habitacion')->where('codigops','like', $value)->get();
+    }
+
+    public function scopeBuscarNombreOtroServicio($query, $value)
+    {
+        # code...
+        return $query->where('categoria','otroServicio')->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoOtroServicio($query, $value)
+    {
+        # code...
+        return $query->where('categoria','otroServicio')->where('codigops','like', $value)->get();
     }
 }
