@@ -21,12 +21,25 @@ new Vue({
             precio: '',
         },
 
+        formServicio: {
+            categoria: '',
+            codigo: '',
+            nombre: '',
+            precio: '',
+            cantidad: '',
+        },
+
         formEventoDelete: {
             id: '',
             nombre: '',
         },
 
         formProductoDelete: {
+            id: '',
+            nombre: '',
+        },
+
+        formServicioDelete: {
             id: '',
             nombre: '',
         },
@@ -49,12 +62,26 @@ new Vue({
             existe: false,
         },
 
+        formServicioEdit: {
+            id: '',
+            codigo: '',
+            nombre: '',
+            precio: '',
+            cantidad: '',
+            existe: false,
+        },
+
         formEventoBuscar: {
             picked: 'todo',
             text: '',
         },
 
         formProductoBuscar: {
+            picked: 'todo',
+            text: '',
+        },
+
+        formServicioBuscar: {
             picked: 'todo',
             text: '',
         },
@@ -89,6 +116,16 @@ new Vue({
             listMaterial: [],
         },
 
+        habitacion: {
+            codigoHabitacion: '',
+            listHabitacion: [],
+        },
+
+        otroServicio: {
+            codigoOtroServicio: '',
+            listOtroServicio: [],
+        },
+
         mensajeEvento: {
             success: false,
             type: '',
@@ -96,6 +133,12 @@ new Vue({
         },
 
         mensajeProducto: {
+            success: false,
+            type: '',
+            title: '',
+        },
+
+        mensajeServicio: {
             success: false,
             type: '',
             title: '',
@@ -118,6 +161,11 @@ new Vue({
         //Montrar Mensaje Tab Producto
         mostrarMensajeProducto: function(){
             return this.mensajeProducto.success;
+        },
+
+        //Montrar Mensaje Tab Servicio
+        mostrarMensajeServicio: function(){
+            return this.mensajeServicio.success;
         },
 
         //Mostrar Boton Tab Evento
@@ -145,7 +193,7 @@ new Vue({
             }
         },
 
-        //Mostrar Boton Tab Prodcuto
+        //Mostrar Boton Tab Producto
         showButtonProducto: function(){
             if (this.formProducto.categoria == 'alimento') {
                 if (this.formProducto.nombre != '' && this.formProducto.precio != '') {
@@ -170,6 +218,26 @@ new Vue({
             }
         },
 
+        //Mostrar Boton Tab Servicio
+        showButtonServicio: function(){
+            if (this.formServicio.categoria == 'habitacion') {
+                if (this.formServicio.nombre != '' && this.formServicio.precio != '') {
+                    return true;
+                }else{
+                    return false;
+                }
+            }else if (this.formServicio.categoria == 'otroServicio') {
+                if (this.formServicio.nombre != '' && this.formServicio.precio != '') {
+                    return true;
+                }else{
+                    return false;
+                }
+            }else{
+                return false;
+            }
+        },
+
+
         //Disabled Codigo Tab Evento
         disabledCodigo: function(){
             if (this.formEvento.categoria == 'evento' || this.formEvento.categoria == 'salones' || this.formEvento.categoria == 'montaje') {
@@ -188,6 +256,25 @@ new Vue({
             }
         },
 
+        //Disabled Codigo Tab Servicio
+        disabledCodigoServicio: function(){
+            if (this.formServicio.categoria == 'habitacion' || this.formServicio.categoria == 'otroServicio' || this.formServicio.categoria == 'equipos') {
+                return true;
+            }else{
+                return false;
+            }
+        },
+
+        //Disabled Cantidad Tab Servicio
+        disabledCantidadServicio: function(){
+            if (this.formServicio.categoria == 'habitacion' || this.formServicio.categoria == 'otroServicio') {
+                return true;
+            }else{
+                return false;
+            }
+        },
+
+        //Disabled Precio Tab Evento
         disabledPrecio: function(){
             if (this.formEvento.categoria == 'evento') {
                 return true;
@@ -196,6 +283,7 @@ new Vue({
             }
         },
 
+        //Disabled Tipo Tab Evento
         disabledTipo: function(){
             if (this.formEvento.categoria == 'evento' || this.formEvento.categoria == 'salones') {
                 return true;
@@ -212,6 +300,95 @@ new Vue({
 
     methods: {
 
+        //Codigo Habitacion
+        getCodigoHabitacion: function(){
+            this.$http.get('/admin/habitacion/autoIncrementoHabitacion').then(
+                function(response){
+                    this.habitacion.codigoHabitacion = response.data;
+                    this.formServicio.codigo = 'CH00' + this.habitacion.codigoHabitacion;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Listar Habitacion
+        getListHabitacion: function(){
+            this.$http.get('/admin/habitacion').then(
+                function(response){
+                    this.habitacion.listHabitacion = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Codigo Habitacion
+        getBuscarCodigoHabitacion: function(){
+            this.$http.get('/admin/habitacion/buscarCodigoHabitacion/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.habitacion.listHabitacion = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Nombre Habitacion
+        getBuscarNombreHabitacion: function(){
+            this.$http.get('/admin/habitacion/buscarNombreHabitacion/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.habitacion.listHabitacion = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Codigo OtroServicio
+        getCodigoOtroServicio: function(){
+            this.$http.get('/admin/otroServicio/autoIncrementoOtroServicio').then(
+                function(response){
+                    this.otroServicio.codigoOtroServicio = response.data;
+                    this.formServicio.codigo = 'CO00' + this.otroServicio.codigoOtroServicio;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Listar OtroServicio
+        getListOtroServicio: function(){
+            this.$http.get('/admin/otroServicio').then(
+                function(response){
+                    this.otroServicio.listOtroServicio = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Codigo OtroServicio
+        getBuscarCodigoOtroServicio: function(){
+            this.$http.get('/admin/otroServicio/buscarCodigoOtroServicio/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.otroServicio.listOtroServicio = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Nombre OtroServicio
+        getBuscarNombreOtroServicio: function(){
+            this.$http.get('/admin/otroServicio/buscarNombreOtroServicio/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.otroServicio.listOtroServicio = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
 
         //Codigo Alimento
         getCodigoAlimento: function(){
@@ -514,6 +691,19 @@ new Vue({
             }else if (this.formProducto.categoria == 'material') {
                 this.getCodigoMaterial();
                 this.getListMaterial();
+            }
+
+        },
+
+        //Selector de Tab Servicio
+        selectServicio: function(){
+
+            if (this.formServicio.categoria == 'habitacion') {
+                this.getCodigoHabitacion();
+                this.getListHabitacion();
+            }else if (this.formServicio.categoria == 'otroServicio') {
+                this.getCodigoOtroServicio();
+                this.getListOtroServicio();
             }
 
         },
@@ -863,6 +1053,126 @@ new Vue({
 
         },
 
+        //***************************************
+        //Save/Update Habitacion-OtroServicio
+        //***************************************
+        onSubmitFormServicio: function(){
+            //Proceso Habitacion
+            if (this.formServicio.categoria == 'habitacion') {
+
+                if (this.formServicioEdit.existe) {
+                    //========================================
+                    //Update Habitacion
+                    //========================================
+                    var myData = {
+                        id: this.formServicioEdit.id,
+                        codigo: this.formServicioEdit.codigo,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                    }
+                    this.$http.put('/admin/habitacion/' + myData.id, myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Actualizado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.codigo = this.getCodigoHabitacion();
+                            this.formServicioEdit.id = '';
+                            this.formServicioEdit.codigo = '';
+                            this.formServicioEdit.nombre = '';
+                            this.formServicioEdit.precio = '';
+                            this.formServicioEdit.existe = false;
+                            this.getListHabitacion();
+                        },
+                        function(){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }else{
+                    //========================================
+                    //Save Habitacion
+                    //========================================
+                    var myData = {
+                        codigo: this.formServicio.codigo,
+                        categoria: this.formServicio.categoria,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                    }
+                    this.$http.post('/admin/habitacion', myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Guardado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.codigo = this.getCodigoHabitacion();
+                            this.getListHabitacion();
+                        },
+                        function(response){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }
+            }//Fin Proceso Habitacion
+
+            //Proceso OtroServicio
+            if (this.formServicio.categoria == 'otroServicio') {
+
+                if (this.formServicioEdit.existe) {
+                    //========================================
+                    //Update OtroServicio
+                    //========================================
+                    var myData = {
+                        id: this.formServicioEdit.id,
+                        codigo: this.formServicioEdit.codigo,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                    }
+                    this.$http.put('/admin/otroServicio/' + myData.id, myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Actualizado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.codigo = this.getCodigoOtroServicio();
+                            this.formServicioEdit.id = '';
+                            this.formServicioEdit.codigo = '';
+                            this.formServicioEdit.nombre = '';
+                            this.formServicioEdit.precio = '';
+                            this.formServicioEdit.existe = false;
+                            this.getListOtroServicio();
+                        },
+                        function(){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }else{
+                    //========================================
+                    //Save OtroServicio
+                    //========================================
+                    var myData = {
+                        codigo: this.formServicio.codigo,
+                        categoria: this.formServicio.categoria,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                    }
+                    this.$http.post('/admin/otroServicio', myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Guardado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.codigo = this.getCodigoOtroServicio();
+                            this.getListOtroServicio();
+                        },
+                        function(response){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }
+            }//Fin Proceso OtroServicio
+
+        },
+
         //**************
         //Edit Tab Evento
         //**************
@@ -933,6 +1243,59 @@ new Vue({
                         console.log('RESPONSE ERROR AJAX');
                     });
             }
+        },
+
+        //**************
+        //Edit Tab Servicio
+        //**************
+        servicioEdit: function(item){
+            
+            //Editar Habitacion
+            if (this.formServicio.categoria == 'habitacion') {
+                this.formServicioEdit.id = item.id;
+                this.formServicioEdit.codigo = item.codigops;
+                this.formServicioEdit.nombre = item.nombre;
+                this.formServicioEdit.precio = item.precio;
+                this.$http.get('/admin/habitacion/' + this.formServicioEdit.id + '/edit').then(
+                    function(response){
+                        if (response.data.existe) {
+                            this.formServicioEdit.existe = true;
+                            this.formServicio.codigo = this.formServicioEdit.codigo;
+                            this.formServicio.nombre = this.formServicioEdit.nombre;
+                            this.formServicio.precio = this.formServicioEdit.precio;
+                        }else{
+                            this.formServicioEdit.existe = false;
+                        }
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
+             //Editar OtroServicio
+            if (this.formServicio.categoria == 'otroServicio') {
+                this.formServicioEdit.id = item.id;
+                this.formServicioEdit.codigo = item.codigops;
+                this.formServicioEdit.nombre = item.nombre;
+                this.formServicioEdit.precio = item.precio;
+                this.$http.get('/admin/otroServicio/' + this.formServicioEdit.id + '/edit').then(
+                    function(response){
+                        if (response.data.existe) {
+                            this.formServicioEdit.existe = true;
+                            this.formServicio.codigo = this.formServicioEdit.codigo;
+                            this.formServicio.nombre = this.formServicioEdit.nombre;
+                            this.formServicio.precio = this.formServicioEdit.precio;
+                        }else{
+                            this.formServicioEdit.existe = false;
+                        }
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
+            
+
         },
 
         //**************
@@ -1129,6 +1492,49 @@ new Vue({
 
         },
 
+        //**********************
+        //Destroy Tab Servicio
+        //**********************
+        onSubmitFormServicioDestroy: function(){
+            
+            //Eliminar Habitacion
+            if (this.formServicio.categoria == 'habitacion') {
+                var getId = this.formServicioDelete.id;
+                this.$http.delete('/admin/habitacion/' + getId).then(
+                    function(){
+                        this.mensajeServicio.success = true;
+                        this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                        this.mensajeServicio.title = 'Datos Eliminado';
+                        this.formServicioDelete.id = '';
+                        this.formServicioDelete.nombre = '';
+                        this.getCodigoHabitacion();
+                        this.getListHabitacion();
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
+            //Eliminar OtroServicio
+            if (this.formServicio.categoria == 'otroServicio') {
+                var getId = this.formServicioDelete.id;
+                this.$http.delete('/admin/otroServicio/' + getId).then(
+                    function(){
+                        this.mensajeServicio.success = true;
+                        this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                        this.mensajeServicio.title = 'Datos Eliminado';
+                        this.formServicioDelete.id = '';
+                        this.formServicioDelete.nombre = '';
+                        this.getCodigoOtroServicio();
+                        this.getListOtroServicio();
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
+        },
+
         //Delete Evento/Salon/Montaje
         eventoDelete: function(id, nombre){
             this.formEventoDelete.id = id;
@@ -1139,6 +1545,12 @@ new Vue({
         productoDelete: function(id, nombre){
             this.formProductoDelete.id = id;
             this.formProductoDelete.nombre = nombre;
+        },
+
+        //Delete Habitacion/OtroServicio
+        servicioDelete: function(id, nombre){
+            this.formServicioDelete.id = id;
+            this.formServicioDelete.nombre = nombre;
         },
 
         //Buscar Tab Evento
@@ -1249,6 +1661,45 @@ new Vue({
            
         },
 
+        //Buscar Tab Servicio
+        onSubmitFormServicioBuscar: function(){
+            
+            //Buscar Habitacion
+            if (this.formServicio.categoria == 'habitacion') {
+                if (this.formServicioBuscar.picked == 'todo') {
+
+                    this.getListHabitacion();
+
+                }else if (this.formServicioBuscar.picked == 'codigo') {
+
+                    this.getBuscarCodigoHabitacion();
+
+                }else if (this.formServicioBuscar.picked == 'nombre') {
+
+                    this.getBuscarNombreHabitacion();
+
+                }
+            }
+
+            //Buscar OtroServicio
+            if (this.formServicio.categoria == 'otroServicio') {
+                if (this.formServicioBuscar.picked == 'todo') {
+
+                    this.getListOtroServicio();
+
+                }else if (this.formServicioBuscar.picked == 'codigo') {
+
+                    this.getBuscarCodigoOtroServicio();
+
+                }else if (this.formServicioBuscar.picked == 'nombre') {
+
+                    this.getBuscarNombreOtroServicio();
+
+                }
+            }
+
+        },
+
         //Cerrar Mensaje Tab Evento
         cerrarMensajeEvento: function(){
             this.mensajeEvento.success = false;
@@ -1261,6 +1712,13 @@ new Vue({
             this.mensajeProducto.success = false;
             this.mensajeProducto.type = '';
             this.mensajeProducto.title = '';
+        },
+
+        //Cerrar Mensaje Tab Servicio
+        cerrarMensajeServicio: function(){
+            this.mensajeServicio.success = false;
+            this.mensajeServicio.type = '';
+            this.mensajeServicio.title = '';
         },
 
     },
