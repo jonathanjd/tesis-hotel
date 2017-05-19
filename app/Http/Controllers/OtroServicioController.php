@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\ProductoServicio;
+
 class OtroServicioController extends Controller
 {
     /**
@@ -14,6 +16,8 @@ class OtroServicioController extends Controller
     public function index()
     {
         //
+        $otroServicios = ProductoServicio::orderBy('id','DESC')->where('categoria', 'otroServicio')->get();
+        return response()->json($otroServicios);
     }
 
     /**
@@ -35,6 +39,12 @@ class OtroServicioController extends Controller
     public function store(Request $request)
     {
         //
+        $otroServicio = new ProductoServicio();
+        $otroServicio->codigops = $request->codigo;
+        $otroServicio->categoria = $request->categoria;
+        $otroServicio->nombre = $request->nombre;
+        $otroServicio->precio = $request->precio;
+        $otroServicio->save();
     }
 
     /**
@@ -57,6 +67,19 @@ class OtroServicioController extends Controller
     public function edit($id)
     {
         //
+        if (ProductoServicio::find($id)) {
+            # code...
+            $data = [
+                'existe' => true,
+            ];
+        }else {
+            # code...
+            $data = [
+                'existe' => false,
+            ];
+        }
+
+        return response()->json($data);
     }
 
     /**
@@ -69,6 +92,10 @@ class OtroServicioController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $otroServicio = ProductoServicio::find($id);
+        $otroServicio->nombre = $request->nombre;
+        $otroServicio->precio = $request->precio;
+        $otroServicio->save();
     }
 
     /**
@@ -80,5 +107,28 @@ class OtroServicioController extends Controller
     public function destroy($id)
     {
         //
+        $otroServicio = ProductoServicio::find($id);
+        $otroServicio->delete();
+    }
+
+    public function autoIncrementoOtroServicio()
+    {
+        # code...
+        $otroServicio = ProductoServicio::autoIncrementoOtroServicio();
+        return response()->json($otroServicio);
+    }
+
+    public function buscarNombreOtroServicio($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarNombreOtroServicio($value);
+        return response()->json($response);
+    }
+
+    public function buscarCodigoOtroServicio($value)
+    {
+        # code...
+        $response = ProductoServicio::buscarCodigoOtroServicio($value);
+        return response()->json($response);
     }
 }
