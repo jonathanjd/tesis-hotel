@@ -62,4 +62,14 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('material/autoIncrementoMaterial','MaterialController@autoIncrementoMaterial');
     Route::resource('material', 'MaterialController');
 
+    Route::get('habitacion/buscarNombreHabitacion/{value}','HabitacionController@buscarNombreHabitacion');
+    Route::get('habitacion/buscarCodigoHabitacion/{value}','HabitacionController@buscarCodigoHabitacion');
+    Route::get('habitacion/autoIncrementoHabitacion','HabitacionController@autoIncrementoHabitacion');
+    Route::resource('habitacion', 'HabitacionController');
+
+    Route::get('otroServicio/buscarNombreOtroServicio/{value}','OtroServicioController@buscarNombreOtroServicio');
+    Route::get('otroServicio/buscarCodigoOtroServicio/{value}','OtroServicioController@buscarCodigoOtroServicio');
+    Route::get('otroServicio/autoIncrementoOtroServicio','OtroServicioController@autoIncrementoOtroServicio');
+    Route::resource('otroServicio', 'OtroServicioController');
+
 });
