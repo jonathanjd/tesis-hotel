@@ -724,7 +724,7 @@ new Vue({
                         id: this.formEventoEdit.id,
                         codigo: this.formEventoEdit.codigo,
                         nombre: this.formEvento.nombre,
-                    }
+                    };
                     this.$http.put('/admin/evento/' + myData.id, myData).then(
                         function(){
                             this.mensajeEvento.success = true;
@@ -748,7 +748,7 @@ new Vue({
                     var myData = {
                         codigo: this.formEvento.codigo,
                         nombre: this.formEvento.nombre,
-                    }
+                    };
                     this.$http.post('/admin/evento', myData).then(
                         function(){
                             this.mensajeEvento.success = true;
@@ -774,7 +774,7 @@ new Vue({
                         codigo: this.formEventoEdit.codigo,
                         nombre: this.formEvento.nombre,
                         precio: this.formEvento.precio,
-                    }
+                    };
                     this.$http.put('/admin/salon/' + myData.id, myData).then(
                         function(){
                             this.mensajeEvento.success = true;
@@ -800,7 +800,7 @@ new Vue({
                         categoria: this.formEvento.categoria,
                         nombre: this.formEvento.nombre,
                         precio: this.formEvento.precio,
-                    }
+                    };
                     this.$http.post('/admin/salon', myData).then(
                         function(){
                             this.mensajeEvento.success = true;
@@ -829,7 +829,7 @@ new Vue({
                         nombre: this.formEvento.nombre,
                         precio: this.formEvento.precio,
                         tipo: this.formEvento.tipo,
-                    }
+                    };
                     this.$http.put('/admin/montaje/' + myData.id, myData).then(
                         function(){
                             this.mensajeEvento.success = true;
@@ -856,7 +856,7 @@ new Vue({
                     nombre: this.formEvento.nombre,
                     precio: this.formEvento.precio,
                     tipo: this.formEvento.tipo,
-                }
+                };
                 this.$http.post('/admin/montaje', myData).then(
                     function(){
                         this.mensajeEvento.success = true;
@@ -892,7 +892,7 @@ new Vue({
                         codigo: this.formProductoEdit.codigo,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.put('/admin/alimento/' + myData.id, myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -920,7 +920,7 @@ new Vue({
                         categoria: this.formProducto.categoria,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.post('/admin/alimento', myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -949,7 +949,7 @@ new Vue({
                         codigo: this.formProductoEdit.codigo,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.put('/admin/bebida/' + myData.id, myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -977,7 +977,7 @@ new Vue({
                         categoria: this.formProducto.categoria,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.post('/admin/bebida', myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -1006,7 +1006,7 @@ new Vue({
                         codigo: this.formProductoEdit.codigo,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.put('/admin/material/' + myData.id, myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -1034,7 +1034,7 @@ new Vue({
                         categoria: this.formProducto.categoria,
                         nombre: this.formProducto.nombre,
                         precio: this.formProducto.precio,
-                    }
+                    };
                     this.$http.post('/admin/material', myData).then(
                         function(){
                             this.mensajeProducto.success = true;
@@ -1069,7 +1069,7 @@ new Vue({
                         codigo: this.formServicioEdit.codigo,
                         nombre: this.formServicio.nombre,
                         precio: this.formServicio.precio,
-                    }
+                    };
                     this.$http.put('/admin/habitacion/' + myData.id, myData).then(
                         function(){
                             this.mensajeServicio.success = true;
@@ -1097,7 +1097,7 @@ new Vue({
                         categoria: this.formServicio.categoria,
                         nombre: this.formServicio.nombre,
                         precio: this.formServicio.precio,
-                    }
+                    };
                     this.$http.post('/admin/habitacion', myData).then(
                         function(){
                             this.mensajeServicio.success = true;
@@ -1126,7 +1126,7 @@ new Vue({
                         codigo: this.formServicioEdit.codigo,
                         nombre: this.formServicio.nombre,
                         precio: this.formServicio.precio,
-                    }
+                    };
                     this.$http.put('/admin/otroServicio/' + myData.id, myData).then(
                         function(){
                             this.mensajeServicio.success = true;
@@ -1154,7 +1154,7 @@ new Vue({
                         categoria: this.formServicio.categoria,
                         nombre: this.formServicio.nombre,
                         precio: this.formServicio.precio,
-                    }
+                    };
                     this.$http.post('/admin/otroServicio', myData).then(
                         function(){
                             this.mensajeServicio.success = true;

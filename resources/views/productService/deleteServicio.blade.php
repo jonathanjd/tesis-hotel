@@ -6,9 +6,9 @@
                     <h3>Eliminar Servicio?</h3>
                 </div><!-- modal-header -->
                 <div class="modal-body">
-                    <p><strong>Deseas eliminar a:</strong> ServicioX</p>
+                    <p><strong>Deseas eliminar a:</strong> @{{ formServicioDelete.nombre }}</p>
                     <form>
-                        <button type="submit" class="btn btn-danger btn-block" data-dismiss="modal">Eliminar</button>
+                        <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" @click.prevent="onSubmitFormServicioDestroy">Eliminar</button>
                         <button type="button" class="btn btn-primary btn-block" data-dismiss="modal">Cerrar</button>
                     </form>
                 </div><!-- modal-body -->
