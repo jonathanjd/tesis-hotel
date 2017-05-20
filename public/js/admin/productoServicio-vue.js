@@ -126,6 +126,11 @@ new Vue({
             listOtroServicio: [],
         },
 
+        equipo: {
+            codigoEquipo: '',
+            listEquipo: [],
+        },
+
         mensajeEvento: {
             success: false,
             type: '',
@@ -232,6 +237,12 @@ new Vue({
                 }else{
                     return false;
                 }
+            }else if (this.formServicio.categoria == 'equipo'){
+                if (this.formServicio.nombre != '' && this.formServicio.precio != '' && this.formServicio.cantidad != '') {
+                    return true;
+                }else{
+                    return false;
+                }
             }else{
                 return false;
             }
@@ -299,6 +310,51 @@ new Vue({
     },
 
     methods: {
+
+        //Codigo Equipo
+        getCodigoEquipo: function(){
+            this.$http.get('/admin/equipo/autoIncrementoEquipo').then(
+                function(response){
+                    this.equipo.codigoEquipo = response.data;
+                    this.formServicio.codigo = 'CH00' + this.equipo.codigoEquipo;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Listar Equipo
+        getListEquipo: function(){
+            this.$http.get('/admin/equipo').then(
+                function(response){
+                    this.equipo.listEquipo = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Codigo Equipo
+        getBuscarCodigoEquipo: function(){
+            this.$http.get('/admin/equipo/buscarCodigoEquipo/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.equipo.listEquipo = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
+
+        //Buscar Nombre Equipo
+        getBuscarNombreEquipo: function(){
+            this.$http.get('/admin/equipo/buscarNombreEquipo/' + this.formServicioBuscar.text).then(
+                function(response){
+                    this.equipo.listEquipo = response.data;
+                },
+                function(){
+                    console.log('RESPONSE ERROR AJAX');
+                });
+        },
 
         //Codigo Habitacion
         getCodigoHabitacion: function(){
@@ -704,6 +760,9 @@ new Vue({
             }else if (this.formServicio.categoria == 'otroServicio') {
                 this.getCodigoOtroServicio();
                 this.getListOtroServicio();
+            }else if (this.formEvento.categoria == 'equipo'){
+                this.getCodigoEquipo();
+                this.getListEquipo();
             }
 
         },
@@ -1171,6 +1230,64 @@ new Vue({
                 }
             }//Fin Proceso OtroServicio
 
+            //Proceso Equipo
+            if (this.formServicioEdit.existe) {
+                    //========================================
+                    //Update Equipo
+                    //========================================
+                    var myData = {
+                        id: this.formServicioEdit.id,
+                        codigo: this.formServicioEdit.codigo,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                        cantidad: this.formServicio.cantidad,
+                    };
+                    this.$http.put('/admin/equipo/' + myData.id, myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Actualizado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.cantidad = '';
+                            this.formServicio.codigo = this.getCodigoEquipo();
+                            this.formServicioEdit.id = '';
+                            this.formServicioEdit.codigo = '';
+                            this.formServicioEdit.nombre = '';
+                            this.formServicioEdit.precio = '';
+                            this.formServicioEdit.cantidad = '';
+                            this.formServicioEdit.existe = false;
+                            this.getListEquipo();
+                        },
+                        function(){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }else{
+                    //========================================
+                    //Save Equipo
+                    //========================================
+                    var myData = {
+                        codigo: this.formServicio.codigo,
+                        categoria: this.formServicio.categoria,
+                        nombre: this.formServicio.nombre,
+                        precio: this.formServicio.precio,
+                        cantidad: this.formServicio.cantidad,
+                    };
+                    this.$http.post('/admin/equipo', myData).then(
+                        function(){
+                            this.mensajeServicio.success = true;
+                            this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                            this.mensajeServicio.title = 'Datos Guardado';
+                            this.formServicio.nombre = '';
+                            this.formServicio.precio = '';
+                            this.formServicio.cantidad = '';
+                            this.formServicio.codigo = this.getCodigoEquipo();
+                            this.getListEquipo();
+                        },
+                        function(response){
+                            console.log('RESPONSE ERROR AJAX');
+                        });
+                }//Fin Proceso Equipo
         },
 
         //**************
@@ -1285,6 +1402,30 @@ new Vue({
                             this.formServicio.codigo = this.formServicioEdit.codigo;
                             this.formServicio.nombre = this.formServicioEdit.nombre;
                             this.formServicio.precio = this.formServicioEdit.precio;
+                        }else{
+                            this.formServicioEdit.existe = false;
+                        }
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
+             //Editar Equipo
+            if (this.formServicio.categoria == 'equipo') {
+                this.formServicioEdit.id = item.id;
+                this.formServicioEdit.codigo = item.codigops;
+                this.formServicioEdit.nombre = item.nombre;
+                this.formServicioEdit.precio = item.precio;
+                this.formServicioEdit.cantidad = item.cantidad;
+                this.$http.get('/admin/equipo/' + this.formServicioEdit.id + '/edit').then(
+                    function(response){
+                        if (response.data.existe) {
+                            this.formServicioEdit.existe = true;
+                            this.formServicio.codigo = this.formServicioEdit.codigo;
+                            this.formServicio.nombre = this.formServicioEdit.nombre;
+                            this.formServicio.precio = this.formServicioEdit.precio;
+                            this.formServicio.cantidad = this.formServicioEdit.cantidad;
                         }else{
                             this.formServicioEdit.existe = false;
                         }
@@ -1533,6 +1674,24 @@ new Vue({
                     });
             }
 
+            //Eliminar Equipo
+            if (this.formServicio.categoria == 'equipo') {
+                var getId = this.formServicioDelete.id;
+                this.$http.delete('/admin/equipo/' + getId).then(
+                    function(){
+                        this.mensajeServicio.success = true;
+                        this.mensajeServicio.type = 'alert alert-success alert-dismissable';
+                        this.mensajeServicio.title = 'Datos Eliminado';
+                        this.formServicioDelete.id = '';
+                        this.formServicioDelete.nombre = '';
+                        this.getCodigoEquipo();
+                        this.getListEquipo();
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
+
         },
 
         //Delete Evento/Salon/Montaje
@@ -1694,6 +1853,23 @@ new Vue({
                 }else if (this.formServicioBuscar.picked == 'nombre') {
 
                     this.getBuscarNombreOtroServicio();
+
+                }
+            }
+
+             //Buscar Equipo
+            if (this.formServicio.categoria == 'equipo') {
+                if (this.formServicioBuscar.picked == 'todo') {
+
+                    this.getListEquipo();
+
+                }else if (this.formServicioBuscar.picked == 'codigo') {
+
+                    this.getBuscarCodigoEquipo();
+
+                }else if (this.formServicioBuscar.picked == 'nombre') {
+
+                    this.getBuscarNombreEquipo();
 
                 }
             }
