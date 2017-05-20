@@ -72,4 +72,9 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('otroServicio/autoIncrementoOtroServicio','OtroServicioController@autoIncrementoOtroServicio');
     Route::resource('otroServicio', 'OtroServicioController');
 
+    Route::get('equipo/buscarNombreEquipo/{value}','EquipoController@buscarNombreEquipo');
+    Route::get('equipo/buscarCodigoEquipo/{value}','EquipoController@buscarCodigoEquipo');
+    Route::get('equipo/autoIncrementoEquipo','EquipoController@autoIncrementoEquipo');
+    Route::resource('equipo', 'EquipoController');
+
 });
