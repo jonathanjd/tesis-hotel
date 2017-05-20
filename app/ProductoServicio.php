@@ -66,6 +66,12 @@ class ProductoServicio extends Model
         return $query->where('categoria','otroServicio');
     }
 
+    public function scopeBuscarCodEquipo($query)
+    {
+        # code...
+        return $query->where('categoria','equipo');
+    }
+
     public static function autoIncrementoMontaje()
     {
         # code...
@@ -162,6 +168,32 @@ class ProductoServicio extends Model
             return $codigo = 1;
         }
 
+    }
+
+    public static function autoIncrementoEquipo()
+    {
+        # code...
+        $codigo = ProductoServicio::buscarCodEquipo();
+
+        if ($codigo->count() > 0) {
+            # code...
+            return $codigo->count() + 1;
+        }else{
+            return $codigo = 1;
+        }
+
+    }
+
+    public function scopeBuscarNombreEquipo($query, $value)
+    {
+        # code...
+        return $query->where('categoria','equipo')->where('nombre','like', $value)->get();
+    }
+
+    public function scopeBuscarCodigoEquipo($query, $value)
+    {
+        # code...
+        return $query->where('categoria','equipo')->where('codigops','like', $value)->get();
     }
 
     public function scopeBuscarNombreSalon($query, $value)
