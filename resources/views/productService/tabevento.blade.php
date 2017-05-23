@@ -59,26 +59,26 @@
                 <div class="form-group">
                     <div class="radio col-md-4">
                         <label for="todo">
-                            <input type="radio" id="todo" value="todo" v-model="formEventoBuscar.picked">
+                            <input type="radio" id="todo" @change="changeEventoBuscar" value="todo" v-model="formEventoBuscar.picked">
                             Todos
                         </label>
                     </div><!-- .radio -->
                     <div class="radio col-md-4">
                         <label for="codigo">
-                            <input type="radio" id="codigo" value="codigo" v-model="formEventoBuscar.picked">
+                            <input type="radio" id="codigo" @change="changeEventoBuscar" value="codigo" v-model="formEventoBuscar.picked">
                             Codigo
                         </label>
                     </div><!-- .radio -->
                     <div class="radio col-md-4">
                         <label for="nombre">
-                            <input type="radio" id="nombre" value="nombre" v-model="formEventoBuscar.picked">
+                            <input type="radio" id="nombre" @change="changeEventoBuscar" value="nombre" v-model="formEventoBuscar.picked">
                             Nombre
                         </label>
                     </div><!-- .radio -->
                 </div><!-- .form-group -->
                 <div class="form-group">
                     <div class="col-md-12">
-                        <input type="text" v-model="formEventoBuscar.text" class="form-control" value="">
+                        <input type="text" v-model="formEventoBuscar.text" class="form-control" value="" :disabled="disabled == 1 ? true : false">
                     </div><!-- .col-md-12 -->
                 </div><!-- .form-group -->
                 <div class="form-group">

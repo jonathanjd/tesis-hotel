@@ -154,8 +154,11 @@ new Vue({
             progressVisible: '',
         },
 
+        disabled: 1,
+
     },
 
+   
     computed: {
 
         //Montrar Mensaje Tab Evento
@@ -1893,6 +1896,63 @@ new Vue({
             this.mensajeServicio.success = false;
             this.mensajeServicio.type = '';
             this.mensajeServicio.title = '';
+        },
+
+        changeEventoBuscar: function(){
+
+           if (this.formEventoBuscar.picked == 'todo') {
+                this.formEventoBuscar.text = '';
+                this.disabled = 1;
+           }
+
+           if (this.formEventoBuscar.picked == 'codigo') {
+                this.formEventoBuscar.text = '';
+                this.disabled = 0;
+           } 
+
+           if (this.formEventoBuscar.picked == 'nombre') {
+               this.formEventoBuscar.text = '';
+               this.disabled = 0;
+           }  
+
+        },
+
+        changeProductoBuscar: function(){
+
+           if (this.formProductoBuscar.picked == 'todo') {
+                this.formProductoBuscar.text = '';
+                this.disabled = 1;
+           }
+
+           if (this.formProductoBuscar.picked == 'codigo') {
+                this.formProductoBuscar.text = '';
+                this.disabled = 0;
+           } 
+
+           if (this.formProductoBuscar.picked == 'nombre') {
+               this.formProductoBuscar.text = '';
+               this.disabled = 0;
+           }  
+
+        },
+
+        changeServicioBuscar: function(){
+
+           if (this.formServicioBuscar.picked == 'todo') {
+                this.formServicioBuscar.text = '';
+                this.disabled = 1;
+           }
+
+           if (this.formServicioBuscar.picked == 'codigo') {
+                this.formServicioBuscar.text = '';
+                this.disabled = 0;
+           } 
+
+           if (this.formServicioBuscar.picked == 'nombre') {
+               this.formServicioBuscar.text = '';
+               this.disabled = 0;
+           }  
+
         },
 
     },
