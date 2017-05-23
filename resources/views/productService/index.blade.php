@@ -56,5 +56,24 @@
 	{!! Html::script('js/vue.js') !!}
     {!! Html::script('js/vue-resource.js') !!}
     {!! Html::script('js/admin/productoServicio-vue.js') !!}
+	{!! Html::script('js/jquery.priceformat.min.js') !!}
+	<script>
+		$('#precioEvento').priceFormat({
+			prefix: '',
+			thousandsSeparator: '',
+			limit: 9
+		});
+		$('#precioProducto').priceFormat({
+			prefix: '',
+			thousandsSeparator: '',
+			limit: 9
+		});
+		$('#precioServicio').priceFormat({
+			prefix: '',
+			thousandsSeparator: '',
+			limit: 9
+		});
+	</script>
+
 
 @endsection

@@ -114,7 +114,7 @@
 		<div class="form-group">
 			<label for="" class="control-label col-md-4">Precio:</label>
 			<div class="col-md-8">
-				<input type="text" class="form-control" v-model="formProducto.precio" :value="formProducto.precio">
+				<input type="text" class="form-control" id="precioProducto" v-model="formProducto.precio" :value="formProducto.precio">
 			</div>
 		</div><!-- .form-group -->
 		<div class="form-group">

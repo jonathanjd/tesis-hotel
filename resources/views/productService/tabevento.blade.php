@@ -124,7 +124,7 @@
             <label for="" class="control-label col-md-4">Precio:</label>
             <div class="col-md-8">
                 <input v-if="disabledPrecio" type="text" class="form-control" disabled="disabled" v-model="formEvento.precio" value="">
-                <input v-else type="text" class="form-control" v-model="formEvento.precio" value="">
+                <input v-else type="text" id="precioEvento" class="form-control" v-model="formEvento.precio" value="">
             </div>
         </div><!-- .form-group -->
         <div class="form-group">
