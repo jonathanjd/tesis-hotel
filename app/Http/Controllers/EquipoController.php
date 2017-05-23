@@ -18,7 +18,7 @@ class EquipoController extends Controller
     public function index()
     {
         //
-        $equipo = ProductoServicio::with('invetarioEquipos')->orderBy('id','DESC')->where('categoria', 'equipo')->get();
+        $equipo = ProductoServicio::with('inventarioEquipos')->orderBy('id','DESC')->where('categoria', 'equipo')->get();
         return response()->json($equipo);
     }
 
@@ -48,10 +48,10 @@ class EquipoController extends Controller
         $equipo->precio = $request->precio;
         $equipo->save();
 
-        $inventatio = new InventarioEquipo();
-        $inventatio->cantidad = $request->cantidad;
-        $inventatio->existencia = $request->cantidad;
-        $inventario->producto_servicio_id = $equipo->id;
+        $inventario = new InventarioEquipo();
+        $inventario->cantidad = $request->cantidad;
+        $inventario->existencia = $request->cantidad;
+        $inventario->productoServicio()->associate($equipo);
         $inventario->save();
 
     }
@@ -106,10 +106,12 @@ class EquipoController extends Controller
         $equipo->precio = $request->precio;
         $equipo->save();
 
-        $inventario = InventarioEquipo::find($equipo->invetarioEquipos[0]->id);
-        $inventario->cantidad = $request->cantidad;
-        $inventario->existencia = $request->cantidad;
-        $inventario->save();
+        foreach ($equipo->inventarioEquipos as $inventario){
+            $inventario->cantidad = $request->cantidad;
+            $inventario->existencia = $request->cantidad;
+            $inventario->save();
+        }
+
     }
 
     /**
@@ -135,14 +137,14 @@ class EquipoController extends Controller
     public function buscarNombreEquipo($value)
     {
         # code...
-        $response = ProductoServicio::with('invetarioEquipos')->buscarNombreEquipo($value);
+        $response = ProductoServicio::with('inventarioEquipos')->buscarNombreEquipo($value);
         return response()->json($response);
     }
 
     public function buscarCodigoEquipo($value)
     {
         # code...
-        $response = ProductoServicio::with('invetarioEquipos')->buscarCodigoEquipo($value);
+        $response = ProductoServicio::with('inventarioEquipos')->buscarCodigoEquipo($value);
         return response()->json($response);
     }
 }

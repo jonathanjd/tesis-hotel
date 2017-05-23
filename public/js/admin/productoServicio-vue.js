@@ -269,7 +269,7 @@ new Vue({
 
         //Disabled Codigo Tab Servicio
         disabledCodigoServicio: function(){
-            if (this.formServicio.categoria == 'habitacion' || this.formServicio.categoria == 'otroServicio' || this.formServicio.categoria == 'equipos') {
+            if (this.formServicio.categoria == 'habitacion' || this.formServicio.categoria == 'otroServicio' || this.formServicio.categoria == 'equipo') {
                 return true;
             }else{
                 return false;
@@ -316,7 +316,7 @@ new Vue({
             this.$http.get('/admin/equipo/autoIncrementoEquipo').then(
                 function(response){
                     this.equipo.codigoEquipo = response.data;
-                    this.formServicio.codigo = 'CH00' + this.equipo.codigoEquipo;
+                    this.formServicio.codigo = 'CE00' + this.equipo.codigoEquipo;
                 },
                 function(){
                     console.log('RESPONSE ERROR AJAX');
@@ -760,7 +760,7 @@ new Vue({
             }else if (this.formServicio.categoria == 'otroServicio') {
                 this.getCodigoOtroServicio();
                 this.getListOtroServicio();
-            }else if (this.formEvento.categoria == 'equipo'){
+            }else if (this.formServicio.categoria == 'equipo'){
                 this.getCodigoEquipo();
                 this.getListEquipo();
             }
@@ -1366,6 +1366,30 @@ new Vue({
         //Edit Tab Servicio
         //**************
         servicioEdit: function(item){
+
+             //Editar Equipo
+            if (this.formServicio.categoria == 'equipo') {
+                this.formServicioEdit.id = item.id;
+                this.formServicioEdit.codigo = item.codigops;
+                this.formServicioEdit.nombre = item.nombre;
+                this.formServicioEdit.precio = item.precio;
+                this.formServicioEdit.cantidad = item.inventario_equipos[0].cantidad;
+                this.$http.get('/admin/equipo/' + this.formServicioEdit.id + '/edit').then(
+                    function(response){
+                        if (response.data.existe) {
+                            this.formServicioEdit.existe = true;
+                            this.formServicio.codigo = this.formServicioEdit.codigo;
+                            this.formServicio.nombre = this.formServicioEdit.nombre;
+                            this.formServicio.precio = this.formServicioEdit.precio;
+                            this.formServicio.cantidad = this.formServicioEdit.cantidad;
+                        }else{
+                            this.formServicioEdit.existe = false;
+                        }
+                    },
+                    function(){
+                        console.log('RESPONSE ERROR AJAX');
+                    });
+            }
             
             //Editar Habitacion
             if (this.formServicio.categoria == 'habitacion') {
@@ -1410,32 +1434,6 @@ new Vue({
                         console.log('RESPONSE ERROR AJAX');
                     });
             }
-
-             //Editar Equipo
-            if (this.formServicio.categoria == 'equipo') {
-                this.formServicioEdit.id = item.id;
-                this.formServicioEdit.codigo = item.codigops;
-                this.formServicioEdit.nombre = item.nombre;
-                this.formServicioEdit.precio = item.precio;
-                this.formServicioEdit.cantidad = item.cantidad;
-                this.$http.get('/admin/equipo/' + this.formServicioEdit.id + '/edit').then(
-                    function(response){
-                        if (response.data.existe) {
-                            this.formServicioEdit.existe = true;
-                            this.formServicio.codigo = this.formServicioEdit.codigo;
-                            this.formServicio.nombre = this.formServicioEdit.nombre;
-                            this.formServicio.precio = this.formServicioEdit.precio;
-                            this.formServicio.cantidad = this.formServicioEdit.cantidad;
-                        }else{
-                            this.formServicioEdit.existe = false;
-                        }
-                    },
-                    function(){
-                        console.log('RESPONSE ERROR AJAX');
-                    });
-            }
-
-            
 
         },
 

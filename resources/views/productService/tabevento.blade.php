@@ -44,7 +44,7 @@
                     <td>@{{ item.codigops }}</td>
                     <td>@{{ item.nombre }}</td>
                     <td>@{{ item.precio }}</td>
-                    <td>@{{ item.tipo_montajes[0].tipomontaje}}</td>
+                    <td>@{{ item.tipo_montajes[0].tipomontaje }}</td>
 
                     <td>
                         <button class="btn btn-warning" @click="eventoEdit(item)"><i class="fa fa-pencil"></i></button>

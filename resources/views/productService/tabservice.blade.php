@@ -42,6 +42,16 @@
                         <button class="btn btn-danger" @click="servicioDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-servicio"><i class="fa fa-trash"></i></button>
                     </td>
       	        </tr>
+                <tr v-if="formServicio.categoria == 'equipo'" v-for="item in equipo.listEquipo">
+                    <td>@{{ item.codigops }}</td>
+                    <td>@{{ item.nombre }}</td>
+                    <td>@{{ item.precio }}</td>
+                    <td>@{{ item.inventario_equipos[0].cantidad }}</td>
+                    <td>
+                        <button class="btn btn-warning" @click="servicioEdit(item)"><i class="fa fa-pencil"></i></button>
+                        <button class="btn btn-danger" @click="servicioDelete(item.id, item.nombre)" data-toggle="modal" data-target="#modal-delete-servicio"><i class="fa fa-trash"></i></button>
+                    </td>
+      	        </tr>
             </tbody>
         </table><!-- .table table-hover table-bordered -->
     </div><!-- .table-responsive -->
@@ -120,7 +130,7 @@
         <div class="form-group">
             <label for="" class="control-label col-md-4">Cantidad:</label>
             <div class="col-md-8">
-                <input v-if="disabledCantidadServicio" type="text" class="form-control" disabled="disabled" v-model="formServicio.cantidad" :value="formServicio.cantidad">
+                <input v-if="disabledCantidadServicio" type="text" class="form-control" disabled="disabled">
                 <input v-else type="text" class="form-control" v-model="formServicio.cantidad" :value="formServicio.cantidad">
             </div>
         </div><!-- .form-group -->

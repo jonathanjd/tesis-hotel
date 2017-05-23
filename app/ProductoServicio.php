@@ -18,7 +18,7 @@ class ProductoServicio extends Model
         return $this->hasMany('App\TipoMontaje');
     }
 
-    public function invetarioEquipos()
+    public function inventarioEquipos()
     {
         return $this->hasMany('App\InventarioEquipo');
     }

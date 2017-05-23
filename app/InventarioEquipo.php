@@ -13,7 +13,7 @@ class InventarioEquipo extends Model
         'cantidad', 'existencia', 'producto_servicio_id',
     ];
 
-    public function productService()
+    public function productoServicio()
     {
         return $this->belongsTo('App\ProductoServicio');
     }
