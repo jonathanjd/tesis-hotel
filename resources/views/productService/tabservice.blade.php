@@ -96,7 +96,7 @@
   	<button v-on:click="cerrarMensajeServicio" type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   	@{{ mensajeServicio.title }}
   </div>
-    <form class="form-horizontal">
+    <form class="form-horizontal" method="post" @submit.prevent="onSubmitFormServicio">
         <legend>Guardar Servicio</legend>
         <div class="form-group">
             <div class="col-md-8 col-md-offset-4">
@@ -136,9 +136,9 @@
         </div><!-- .form-group -->
         <div class="form-group">
             <div class="col-md-8 col-md-offset-4">
-                <button v-if="showButtonServicio" type="button" class="btn btn-success" @click.prevent="onSubmitFormServicio">Guardar</button>
+                <button v-if="showButtonServicio" type="submit" class="btn btn-success">Guardar</button>
                 <button v-else type="button" disabled="disabled" class="btn btn-success">Guardar</button>
-                <button class="btn btn-primary">Limpiar</button>
+                <button class="btn btn-primary" @click="limpiarBtnServicio">Limpiar</button>
             </div><!-- .col-md-offset-4 -->
         </div><!-- .form-group -->
     </form><!-- .form-horizonta -->

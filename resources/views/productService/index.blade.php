@@ -44,9 +44,7 @@
 			</div><!-- .COL-MD-12 -->
 		</div><!-- .ROW -->
 	</div><!-- .CONTAINER -->
-	<pre>
-		@{{ $data }}
-	</pre>
+	
 	<!-- MODAL -->
 	@include('productService.deleteProducto')
 	@include('productService.deleteServicio')

@@ -1955,5 +1955,103 @@ new Vue({
 
         },
 
+        //Limpiar Tab Evento
+        limpiarBtnEvento: function(){
+            this.formEvento.categoria = '';
+            this.formEvento.codigo = '';
+            this.formEvento.nombre = '';
+            this.formEvento.precio = '';
+            this.formEvento.tipo = '';
+
+            this.formEventoDelete.id = '';
+            this.formEventoDelete.nombre = '';
+
+            this.formEventoEdit.id = '';
+            this.formEventoEdit.codigo = '';
+            this.formEventoEdit.nombre = '';
+            this.formEventoEdit.precio = '';
+            this.formEventoEdit.tipo = '';
+            this.formEventoEdit.existe = false;
+
+            this.formEventoBuscar.picked = 'todo';
+            this.formEventoBuscar.text = '';
+
+            this.evento.codigoEvento = '';
+            this.evento.listEvento = [];
+
+            this.montaje.codigoMontaje = '';
+            this.montaje.listMontaje = [];
+
+            this.salon.codigoSalon = '';
+            this.salon.listSalon = [];
+
+            this.disabled = 1;
+        },
+
+        //Limpiar Tab Producto
+        limpiarBtnProducto: function(){
+            this.formProducto.categoria = '';
+            this.formProducto.codigo = '';
+            this.formProducto.nombre = '';
+            this.formProducto.precio = '';
+
+            this.formProductoDelete.id = '';
+            this.formProductoDelete.nombre = '';
+
+            this.formProductoEdit.id = '';
+            this.formProductoEdit.codigo = '';
+            this.formProductoEdit.nombre = '';
+            this.formProductoEdit.precio = '';
+            this.formProductoEdit.tipo = '';
+            this.formProductoEdit.existe = false;
+
+            this.formProductoBuscar.picked = 'todo';
+            this.formProductoBuscar.text = '';
+
+            this.alimento.codigoAlimento = '';
+            this.alimento.listAlimento = [];
+
+            this.bebida.codigoBebida = '';
+            this.bebida.listBebida = [];
+
+            this.material.codigoMaterial = '';
+            this.material.listMaterial = [];
+
+            this.disabled = 1;
+        },
+
+        //Limpiar Tab Servicio
+        limpiarBtnServicio: function(){
+            this.formServicio.categoria = '';
+            this.formServicio.codigo = '';
+            this.formServicio.nombre = '';
+            this.formServicio.precio = '';
+            this.formServicio.cantidad = '';
+
+            this.formServicioDelete.id = '';
+            this.formServicioDelete.nombre = '';
+
+            this.formServicioEdit.id = '';
+            this.formServicioEdit.codigo = '';
+            this.formServicioEdit.nombre = '';
+            this.formServicioEdit.precio = '';
+            this.formServicioEdit.cantidad = '';
+            this.formServicioEdit.existe = false;
+
+            this.formServicioBuscar.picked = 'todo';
+            this.formServicioBuscar.text = '';
+
+            this.equipo.codigoEquipo = '';
+            this.equipo.listEquipo = [];
+
+            this.habitacion.codigoHabitacion = '';
+            this.habitacion.listHabitacion = [];
+
+            this.otroServicio.codigoOtroServicio = '';
+            this.otroServicio.listOtroServicio = [];
+
+            this.disabled = 1;
+        },
+
     },
 });

@@ -146,7 +146,7 @@
             <div class="col-md-8 col-md-offset-4">
                 <button v-if="showButtonEvento" type="submit" class="btn btn-success">Guardar</button>
                 <button v-else type="button" disabled="disabled" class="btn btn-success">Guardar</button>
-                <button class="btn btn-primary">Limpiar</button>
+                <button @click="limpiarBtnEvento" class="btn btn-primary">Limpiar</button>
             </div><!-- .col-md-offset-4 -->
         </div><!-- .form-group -->
     </form><!-- .form-horizonta -->
