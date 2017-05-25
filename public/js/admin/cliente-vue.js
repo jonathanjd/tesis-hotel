@@ -152,6 +152,8 @@ new Vue({
                         this.msjSuccess = true;
                         this.mensaje.type = 'alert alert-warning alert-dismissable';
                         this.mensaje.title = 'Datos No Encontrado';
+                        this.css.ajaxProcesoVisible = 'display: none;';
+                        this.cleanData();
                     }
                 },
                 function(response){
@@ -202,7 +204,6 @@ new Vue({
 
         cerrarMensaje: function(){
             this.msjSuccess = false;
-
         },
     }
 

@@ -233,11 +233,11 @@
             <div class="panel panel-primary">
                 <div class="panel-body text-center">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#cargar"><i class="fa fa-shopping-basket fa-2x"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-folder-open fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-search fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-save fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-trash fa-2x"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-home fa-2x"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-check fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-check-square-o fa-2x"></i></button>
+                    <button class="btn btn-primary"><i class="fa fa-envelope-o fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-print fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-close fa-2x"></i></button>
                 </div><!-- panel-body -->
