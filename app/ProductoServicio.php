@@ -23,6 +23,11 @@ class ProductoServicio extends Model
         return $this->hasMany('App\InventarioEquipo');
     }
 
+    public function detailBudgets()
+    {
+        return $this->hasMany('App\DetailBudget', 'detail_budget_id');
+    }
+
     public function scopeBuscarCodSalon($query)
     {
         # code...

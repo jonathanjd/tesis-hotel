@@ -11,6 +11,11 @@ class Evento extends Model
         'codigoevento', 'nombre',
     ];
 
+    public function detailEventos()
+    {
+        return $this->hasMany('App\DetailEvento', 'detail_evento_id');
+    }
+
     public function scopeBuscarCodigo($query)
     {
         # code...
