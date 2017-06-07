@@ -30,6 +30,14 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::resource('contacto', 'ContactController');
     Route::resource('user', 'UserController');
     Route::resource('productService', 'ProductServiceController');
+
+    Route::get('presupuesto/autoIncrementoPresupuesto','PresupuestoController@autoIncrementoPresupuesto');
+    Route::get('presupuesto/precioMontaje/{nombre}/{tipo}','PresupuestoController@precioMontaje');
+    Route::get('presupuesto/precioSalon/{nombre}','PresupuestoController@precioSalon');
+    Route::get('presupuesto/listarAlimentos','PresupuestoController@listarAlimentos');
+    Route::get('presupuesto/listarBebidas','PresupuestoController@listarBebidas');
+    Route::get('presupuesto/listarMateriales','PresupuestoController@listarMateriales');
+    Route::get('presupuesto/listarEquipos','PresupuestoController@listarEquipos');
     Route::resource('presupuesto', 'PresupuestoController');
 
     Route::get('evento/buscarNombreEvento/{value}','EventoController@buscarNombreEvento');

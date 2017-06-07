@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('title', 'Presupuesto')
 @section('style')
-
+{!! Html::style('css/bootstrap-datepicker.min.css') !!}
+{!! Html::style('css/bootstrap-timepicker.min.css') !!}
 @endsection
 @section('title-section','Gestionar Presupuesto')
 @section('content')
@@ -22,40 +23,37 @@
                               <div class="form-group">
                                   <label for="" class="control-label col-md-4">Cedula/Rif:</label>
                                   <div class="col-md-6">
-                                      <input type="text" name="" value="" class="form-control">
+                                      <input type="text" v-model="cliente.buscar.cedula" name="" :value="cliente.buscar.cedula" class="form-control">
                                   </div>
                                   <div class="col-md-2">
-                                      <button type="button" name="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                      <button type="button" @click="buscarCliente" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                   </div>
                               </div>
                           </form>
                       </div>
-                      <div class="infoCliente">
-                          <form class="form-horizontal">
-                              <div class="form-group">
-                                  <label for="" class="control-label col-md-4">Codigo:</label>
-                                  <div class="col-md-8">
-                                      <input type="text" name="" value="" class="form-control">
-                                  </div><!-- .col-md-8 -->
-                              </div><!-- .form-group -->
-                              <div class="form-group">
-                                  <label for="" class="control-label col-md-4">Teléfono:</label>
-                                  <div class="col-md-8">
-                                      <input type="text" name="" value="" class="form-control">
-                                  </div><!-- .col-md-8 -->
-                              </div><!-- .form-group -->
-                              <div class="form-group">
-                                  <label for="" class="control-label col-md-4">Fax:</label>
-                                  <div class="col-md-8">
-                                      <input type="text" name="" value="" class="form-control">
-                                  </div><!-- .col-md-8 -->
-                              </div><!-- .form-group -->
-                          </form>
+                      <div class="infoCliente form-horizontal">
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Codigo:</label>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" :value="cliente.codigo" class="form-control">
+                                </div><!-- .col-md-8 -->
+                            </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Teléfono:</label>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" :value="cliente.telefono" class="form-control">
+                                </div><!-- .col-md-8 -->
+                             </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Fax:</label>
+                                <div class="col-md-8">
+                                    <input type="text" disabled="disabled" :value="cliente.fax" class="form-control">
+                                </div><!-- .col-md-8 -->
+                            </div><!-- .form-group -->
                       </div>
                   </div>
                   <div class="col-md-6">
-                      <div class="infoClienteExtra">
-                          <form class="form-horizontal">
+                      <div class="infoClienteExtra form-horizontal">
                               <div class="panel panel-default">
                                   <div class="panel-heading">
                                       <h3 class="panel-title">Contacto Principal</h3>
@@ -64,24 +62,23 @@
                                       <div class="form-group">
                                           <label for="" class="control-label col-md-4">Nombre:</label>
                                           <div class="col-md-8">
-                                              <input type="text" name="" value="" class="form-control">
+                                              <input type="text" disabled="disabled" :value="cliente.nombreContacto" class="form-control">
                                           </div><!-- .col-md-8 -->
                                       </div><!-- .form-group -->
                                       <div class="form-group">
                                           <label for="" class="control-label col-md-4">Cargo</label>
                                           <div class="col-md-8">
-                                              <input type="text" name="" value="" class="form-control">
+                                              <input type="text" disabled="disabled" :value="cliente.cargoContacto" class="form-control">
                                           </div><!-- .col-md-8 -->
                                       </div><!-- .form-group -->
                                       <div class="form-group">
                                           <label for="" class="control-label col-md-4">Teléfono:</label>
                                           <div class="col-md-8">
-                                              <input type="text" name="" value="" class="form-control">
+                                              <input type="text" disabled="disabled" :value="cliente.telefonoContacto" class="form-control">
                                           </div><!-- .col-md-8 -->
                                       </div><!-- .form-group -->
                                   </div>
                               </div>
-                          </form>
                       </div>
                   </div>
               </div><!-- .panel-body -->
@@ -95,27 +92,25 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">SIGAEH</h3>
                 </div>
-                <div class="panel-body">
-                    <form class="form-horizontal">
+                <div class="panel-body form-horizontal">
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Codigo de Presupuesto:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" name="" value="">
+                                <input class="form-control" type="text" :value="budget.codigo" disabled="disabled">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Fecha de Emisión:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="date" name="" value="{{ $now->toDateString() }}">
+                                <input class="form-control" type="date" name="" :value="budget.fechaEmision">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Fecha de Confirmación:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="date" name="" value="{{ $now->toDateString() }}">
+                                <input class="form-control" type="date" name="" :value="budget.fechaConfirmacion">
                             </div>
                         </div><!-- .form-group -->
-                    </form><!-- .form-horizontal -->
                 </div>
             </div><!-- .panel panel-primary -->
         </div><!-- .col-md-4 -->
@@ -202,27 +197,25 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Total</h3>
                 </div>
-                <div class="panel-body">
-                    <form class="form-horizontal">
+                <div class="panel-body form-horizontal">
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Sub Total:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" name="" value="">
+                                <input class="form-control" type="text" :value="total.subTotal">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Iva 12%:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" name="" value="">
+                                <input class="form-control" type="text" :value="total.iva">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Total General:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" name="" value="">
+                                <input class="form-control" type="text" :value="total.totalGeneral">
                             </div>
                         </div><!-- .form-group -->
-                    </form>
                 </div>
             </div>
         </div><!-- .col-md-4 -->
@@ -278,6 +271,16 @@
     <!-- MODAL START -->
     @include('presupuesto.cargar')
     <!-- MODAL END -->
+    <pre>
+        @{{ $data }}
+    </pre>
 </div><!-- .container -->
 
+@endsection
+@section('script')
+    {!! Html::script('js/vue.js') !!}
+    {!! Html::script('js/vue-resource.js') !!}
+    {!! Html::script('js/bootstrap-datepicker.min.js') !!}
+    {!! Html::script('js/bootstrap-timepicker.min.js') !!}
+    {!! Html::script('js/admin/presupuesto-vue.js') !!}
 @endsection

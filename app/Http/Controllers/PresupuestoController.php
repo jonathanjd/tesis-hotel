@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 use Carbon\Carbon;
 
+use App\Budget;
+
+use App\Evento;
+
+use App\ProductoServicio;
+
 class PresupuestoController extends Controller
 {
     /**
@@ -16,8 +22,13 @@ class PresupuestoController extends Controller
     public function index()
     {
         //
-        $now = Carbon::today();
-        return view('presupuesto.index')->with('now', $now);
+        $now = Carbon::now();
+        $listEvento = Evento::all();
+        $listSalones = ProductoServicio::where('categoria', 'salones')->get();
+        return view('presupuesto.index')
+            ->with('now', $now)
+            ->with('listSalones', $listSalones)
+            ->with('listEvento', $listEvento);
     }
 
     /**
@@ -85,4 +96,83 @@ class PresupuestoController extends Controller
     {
         //
     }
+
+    public function autoIncrementoPresupuesto()
+    {
+        # code...
+        $codigo = Budget::autoIncrementoBudget();
+        $fechaActual = Carbon::now();
+        $response =
+        [
+            'codigo' => $codigo,
+            'fechaActual' => $fechaActual->format('Y-m-d'),
+        ];
+        return response()->json($response);
+    }
+
+    /**
+     * [listarSalon Mostrar la lista de Salones]
+     * @return [json] [salones]
+     */
+    public function precioSalon($nombre)
+    {
+        # code...
+        $salones = ProductoServicio::where([['categoria', 'salones'],['nombre', $nombre]])->first();
+        return response()->json($salones);
+    }
+
+    /**
+     * [listarEvento Mostrar la lista e Evento]
+     * @return [json] [eventos]
+     */
+    public function precioMontaje($nombre, $tipo)
+    {
+        # code...
+        $montaje = ProductoServicio::precioMontaje($nombre, $tipo);
+        return response()->json($montaje);
+    }
+
+    /**
+     * Mostrar Lista de Alimentos
+     *
+     * @return json Alimentos
+     */
+    public function listarAlimentos()
+    {
+        # code...
+        $alimentos = ProductoServicio::where('categoria', 'alimento')->get();
+        return response()->json($alimentos);
+    }
+
+    /**
+     * Mostrar Lista de Bebidas
+     *
+     * @return json
+     */
+    public function listarBebidas()
+    {
+        # code...
+        $bebidas = ProductoServicio::where('categoria', 'bebida')->get();
+        return response()->json($bebidas);
+    }
+
+    /**
+     * Mostrar Lista de Materiales
+     *
+     * @return json
+     */
+    public function listarMateriales()
+    {
+        # code...
+        $materiales = ProductoServicio::where('categoria', 'material')->get();
+        return response()->json($materiales);
+    }
+
+    public function listarEquipos()
+    {
+        # code...
+        $equipos = ProductoServicio::with('inventarioEquipos')->where('categoria', 'equipo')->get();
+        return response()->json($equipos);
+    }
+
 }

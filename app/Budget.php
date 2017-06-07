@@ -40,4 +40,27 @@ class Budget extends Model
         return $this->hasOne('App\Invoice');
     }
 
+    public function scopeBuscarCodigo($query)
+    {
+        # code...
+        return $query
+            ->select('id')
+            ->orderBy('id', 'DESC')
+            ->first();
+    }
+
+    public static function autoIncrementoBudget()
+    {
+        # code...
+        $codigo = Budget::buscarCodigo();
+
+        if ($codigo->exists()) {
+            # code...
+            return $codigo->id + 1;
+        }else{
+            return $codigo = 1;
+        }
+    }
+    
+
 }

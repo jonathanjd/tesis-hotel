@@ -32,7 +32,7 @@ class ProductoServicio extends Model
     {
         # code...
         return $query->where('categoria','salones');
-          
+
     }
 
     public function scopeBuscarCodMontaje($query)
@@ -284,4 +284,13 @@ class ProductoServicio extends Model
         # code...
         return $query->where('categoria','otroServicio')->where('codigops','like', $value)->get();
     }
+
+    public function scopePrecioMontaje($query, $nombre, $tipo)
+    {
+        # code...
+        return $query->join('tipo_montajes', 'producto_servicios.id', '=', 'tipo_montajes.producto_servicio_id')
+                    ->where([['producto_servicios.categoria','montaje'],['producto_servicios.nombre', $nombre]])
+                    ->where('tipo_montajes.tipomontaje', $tipo)->first();
+    }
+
 }
