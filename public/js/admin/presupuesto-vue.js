@@ -43,7 +43,7 @@ new Vue({
                 nombre: 'seleccionar',
                 fechaDesde: '',
                 fechaHasta: '',
-                dias: '0',
+                dias: '',
                 descuento: 0,
                 total: 0,
                 totalDescuento: 0,
@@ -190,19 +190,16 @@ new Vue({
         changeDisabledTabEvento: function() {
 
             /**
-             * Validar Input Evento 
-             * evento:{
-                nombre: 'seleccionar',
-                fechaDesde: '',
-                fechaHasta: '',
-                hora: '',
-                nPersonas: '0',
-                comentarios: '',
+             * Validar Input Evento - Salon - Montaje
              */
 
             if(this.input.evento.nombre != 'seleccionar' && this.input.evento.fechaDesde != '' && 
                 this.input.evento.fechaHasta != '' && this.input.evento.hora != '' && 
-                this.input.evento.nPersonas != '' && this.input.evento.comentarios != ''){
+                this.input.evento.nPersonas != '' && this.input.evento.comentarios != '' &&
+                this.input.salon.nombre != 'seleccionar' && this.input.salon.fechaDesde != '' &&
+                this.input.salon.fechaHasta != '' && this.input.salon.dias != '' &&
+                this.input.salon.total != '' && this.input.salon.cantidad != '' && this.input.montaje.nombre
+                ){
                 
                 return false;
 
