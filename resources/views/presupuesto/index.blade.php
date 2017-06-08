@@ -102,13 +102,13 @@
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Fecha de Emisión:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="date" name="" :value="budget.fechaEmision">
+                                <input class="form-control" type="date" disabled name="" :value="budget.fechaEmision">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Fecha de Confirmación:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="date" name="" :value="budget.fechaConfirmacion">
+                                <input class="form-control" type="date" disabled name="" :value="budget.fechaConfirmacion">
                             </div>
                         </div><!-- .form-group -->
                 </div>
@@ -125,65 +125,61 @@
                 <div class="panel-body">
 
                     <div>
-                        <form class="form-horizontal">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Tipo:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Salón:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Hora:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                            </div><!-- .col-md-6 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Tipo:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.tipo">
+                                </div>
+                            </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Salón:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.salon">
+                                </div>
+                            </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Hora:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.hora">
+                                </div>
+                            </div><!-- .form-group -->
+                        </div><!-- .col-md-6 -->
 
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Montaje:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">N° Pax:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Comentario:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="text" name="" value="">
-                                    </div>
-                                </div><!-- .form-group -->
-                            </div><!-- .col-md-6 -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Montaje:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.montaje">
+                                </div>
+                            </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">N° Pax:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.nPersonas">
+                                </div>
+                            </div><!-- .form-group -->
+                            <div class="form-group">
+                                <label for="" class="control-label col-md-4">Comentario:</label>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" disabled :value="budget.sectionEvento.comentarios">
+                                </div>
+                            </div><!-- .form-group -->
+                        </div><!-- .col-md-6 -->
 
-                            <div class="col-md-12">
-                                <p class="text-center"><strong>Fecha</strong></p>
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Desde:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="Date" name="" value="{{ $now->toDateString() }}">
-                                    </div>
-                                </div><!-- .form-group -->
-                                <div class="form-group">
-                                    <label for="" class="control-label col-md-4">Hasta:</label>
-                                    <div class="col-md-8">
-                                        <input class="form-control" type="Date" name="" value="{{ $now->toDateString() }}">
-                                    </div>
-                                </div><!-- .form-group -->
-                            </div><!-- .col-md-12 -->
-                        </form><!-- .form-horizontal -->
+                        <div class="col-md-12">
+                            <p class="text-center"><strong>Fecha:</strong></p>
+                            <div class="form-group">
+                                <label for="" class="col-md-1">Desde:</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" type="text" disabled name="" :value="budget.sectionEvento.fechaDesde">
+                                </div>
+                                <label for="" class="control-label col-md-1">Hasta:</label>
+                                <div class="col-md-5">
+                                    <input class="form-control" type="text" disabled name="" :value="budget.sectionEvento.fechaHasta">
+                                </div>
+                            </div><!-- .form-group -->
+                        </div><!-- .col-md-12 -->
                     </div>
 
                 </div><!-- .panel-body -->
@@ -201,19 +197,19 @@
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Sub Total:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" :value="total.subTotal">
+                                <input class="form-control" type="text" disabled :value="calcularSubTotal">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Iva 12%:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" :value="total.iva">
+                                <input class="form-control" type="text" disabled :value="calcularIva">
                             </div>
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <label for="" class="control-label col-md-5">Total General:</label>
                             <div class="col-md-7">
-                                <input class="form-control" type="text" :value="total.totalGeneral">
+                                <input class="form-control" type="text" disabled :value="calcularTotal">
                             </div>
                         </div><!-- .form-group -->
                 </div>

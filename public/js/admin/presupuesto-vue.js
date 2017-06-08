@@ -9,12 +9,24 @@ new Vue({
             codigo: '',
             fechaEmision: '',
             fechaConfirmacion: '',
+            sectionEvento: {
+                tipo: '',
+                salon: '',
+                hora: '',
+                montaje: '',
+                nPersonas: '',
+                comentarios: '',
+                fechaDesde: '',
+                fechaHasta: '',
+            },
+
+            detalles:[],
         },
 
         total:{
-            subTotal: '0',
-            iva: '0',
-            totalGeneral: '0',
+            subTotal: 0,
+            iva: 0,
+            totalGeneral: 0,
         },
 
         cliente:{
@@ -55,7 +67,7 @@ new Vue({
                 nombre: '',
                 cantidad: '1',
                 dias: '0',
-                total: '0',
+                total: 0,
                 btnImperial: 'btn btn-primary sizeButtonMiddle',
                 btnEscuela: 'btn btn-primary sizeButtonMiddle',
                 btnCoctel: 'btn btn-primary sizeButtonMiddle',
@@ -219,9 +231,49 @@ new Vue({
             return true;
         },
 
+        //Operacion Section Total Presupuesto
+        calcularSubTotal: function(){
+            return this.total.subTotal;
+        },
+
+        calcularIva: function(){
+            this.total.iva = 12 * this.total.subTotal / 100;
+            return this.total.iva;
+        },
+
+        calcularTotal: function(){
+            this.total.totalGeneral = parseInt(this.total.subTotal) + parseInt(this.total.iva);
+            return this.total.totalGeneral;
+        },
+
     },
 
     methods: {
+
+        //Cargar Item Evento
+        cargarItemEvento: function(){
+            
+            //Section Evento
+            this.budget.sectionEvento.tipo = this.input.evento.nombre;
+            this.budget.sectionEvento.salon = this.input.salon.nombre;
+            this.budget.sectionEvento.hora = this.input.evento.hora;
+            this.budget.sectionEvento.montaje = this.input.montaje.nombre;
+            this.budget.sectionEvento.nPersonas = this.input.evento.nPersonas;
+            this.budget.sectionEvento.comentarios = this.input.evento.comentarios;
+            this.budget.sectionEvento.fechaDesde = this.input.evento.fechaDesde;
+            this.budget.sectionEvento.fechaHasta = this.input.evento.fechaHasta;
+            this.total.subTotal = parseInt(this.input.salon.totalDescuento) + parseInt(this.input.montaje.total);
+        },
+
+        //Cargar Item Producto
+        cargarItemProducto: function(){
+            
+        },
+
+        //Cargar Item Servicio
+        cargarItemServicio: function(){
+            
+        },
 
         //AutoIncremento para Budget
         autoIncrementoBudget: function(){

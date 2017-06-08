@@ -125,7 +125,7 @@
             </div>
             <div class="col-md-2">
                 <div class="well text-center">
-                    <button class="btn btn-primary btn-lg fa-2x" type="button" name="button" :disabled="changeDisabledTabEvento">
+                    <button class="btn btn-primary btn-lg fa-2x" type="button" name="button" @click="cargarItemEvento" :disabled="changeDisabledTabEvento">
                                             <i class="fa fa-level-down"></i>
                                         </button>
                     <br>
