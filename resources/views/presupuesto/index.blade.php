@@ -190,7 +190,7 @@
             </div><!-- .panel panel-info -->
         </div><!-- .col-md-8 -->
         <!-- *** EVENTO END *** -->
-
+        
         <!-- *** TOTAL START *** -->
         <div class="col-md-4">
             <div class="panel panel-primary">
@@ -237,7 +237,7 @@
             </div><!-- panel panel-primary -->
         </div><!-- col-md-12 -->
         <!-- ACCIONES END -->
-
+        
         <!-- TABLA START -->
         <div class="col-md-12">
             <div class="table responsive">

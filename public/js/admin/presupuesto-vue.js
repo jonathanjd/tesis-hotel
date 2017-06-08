@@ -97,10 +97,24 @@ new Vue({
             },
         },
 
+        tabEvento:{
+            disabledCargar: 1,
+        },
+
+        tabProducto: {
+            disabledCargar: 1,
+        },
+
+        tabServicio: {
+            disabledCargar: 1,
+        },
+
         disabled: 1,
         disabledServicio: 1,
 
     },
+
+    
 
     mounted: function(){
 
@@ -169,6 +183,45 @@ new Vue({
             minuteStep: 5,
             defaultTime: false
         }).on("change", () => {this.input.servicio.hora = $("#servicioHora").val()});
+    },
+
+    computed: {
+
+        changeDisabledTabEvento: function() {
+
+            /**
+             * Validar Input Evento 
+             * evento:{
+                nombre: 'seleccionar',
+                fechaDesde: '',
+                fechaHasta: '',
+                hora: '',
+                nPersonas: '0',
+                comentarios: '',
+             */
+
+            if(this.input.evento.nombre != 'seleccionar' && this.input.evento.fechaDesde != '' && 
+                this.input.evento.fechaHasta != '' && this.input.evento.hora != '' && 
+                this.input.evento.nPersonas != '' && this.input.evento.comentarios != ''){
+                
+                return false;
+
+            }else{
+
+                return true;
+
+            }
+
+        },
+
+        changeDisabledTabProducto: function() {
+            return true;
+        },
+
+        changeDisabledTabServicio: function() {
+            return true;
+        },
+
     },
 
     methods: {
@@ -640,6 +693,8 @@ new Vue({
             }
 
         },
+
+        
 
     },
 
