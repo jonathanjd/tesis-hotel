@@ -9,6 +9,7 @@ new Vue({
             codigo: '',
             fechaEmision: '',
             fechaConfirmacion: '',
+            detalles:[],
             sectionEvento: {
                 tipo: '',
                 salon: '',
@@ -19,8 +20,6 @@ new Vue({
                 fechaDesde: '',
                 fechaHasta: '',
             },
-
-            detalles:[],
         },
 
         total:{
@@ -52,6 +51,7 @@ new Vue({
             },
 
             salon: {
+                codigo: '',
                 nombre: 'seleccionar',
                 fechaDesde: '',
                 fechaHasta: '',
@@ -63,6 +63,7 @@ new Vue({
             },
 
             montaje: {
+                codigo: '',
                 picked: 'pequeño',
                 nombre: '',
                 cantidad: '1',
@@ -224,11 +225,38 @@ new Vue({
         },
 
         changeDisabledTabProducto: function() {
-            return true;
+
+            /**
+             * Validar Input Producto
+             */
+
+             if(this.input.producto.codigo != '' && this.input.producto.nombre != '' 
+                && this.input.producto.precio != '' && this.input.producto.cantidad != '' 
+                && this.input.producto.fechaInicio != '' && this.input.producto.fechaFin != '' 
+                && this.input.producto.dias != '' && this.input.producto.hora != ''
+             ){
+                return false;
+             }else{
+                return true;
+             }
+
         },
 
         changeDisabledTabServicio: function() {
-            return true;
+            
+            /**
+             *  Validar Input Servicio
+             */
+
+            if(this.input.servicio.codigo != '' && this.input.servicio.nombre != '' 
+                && this.input.servicio.precio != '' && this.input.servicio.cantidad != '' 
+                && this.input.servicio.fechaInicio != '' && this.input.servicio.fechaFin != '' 
+                && this.input.servicio.dias != '' && this.input.servicio.hora != ''
+             ){
+                return false;
+             }else{
+                return true;
+             }
         },
 
         //Operacion Section Total Presupuesto
@@ -263,16 +291,80 @@ new Vue({
             this.budget.sectionEvento.fechaDesde = this.input.evento.fechaDesde;
             this.budget.sectionEvento.fechaHasta = this.input.evento.fechaHasta;
             this.total.subTotal = parseInt(this.input.salon.totalDescuento) + parseInt(this.input.montaje.total);
+
+            this.addDetallePresupuesto(
+                this.input.salon.codigo,
+                "Salon: " + 
+                this.budget.sectionEvento.salon + 
+                " Desde: " + this.budget.sectionEvento.fechaDesde + 
+                " Hasta: " + this.budget.sectionEvento.fechaHasta + 
+                " N° Personas: " + this.budget.sectionEvento.nPersonas,
+                1,
+                this.input.salon.dias,
+                this.input.salon.totalDescuento,
+                this.input.salon.totalDescuento,
+            );
+
+           this.addDetallePresupuesto(
+               this.input.montaje.codigo,
+               this.input.montaje.nombre,
+               1,
+               this.input.salon.dias,
+               this.input.montaje.total,
+               this.input.montaje.total
+           );
+
         },
 
         //Cargar Item Producto
         cargarItemProducto: function(){
-            
+
+            this.addDetallePresupuesto(
+                this.input.producto.codigo,
+                this.input.producto.nombre + 
+                " Fecha Inic: " + this.input.producto.fechaInicio + 
+                " Fecha Fin: " + this.input.producto.fechaFin +
+                " Hora: " + this.input.producto.hora,
+                this.input.producto.cantidad,
+                this.input.producto.dias,
+                this.input.producto.precio,
+                this.input.producto.precio,
+            );
+
         },
 
         //Cargar Item Servicio
         cargarItemServicio: function(){
-            
+
+            this.total.subTotal += parseInt(this.input.servicio.precio);
+
+            this.addDetallePresupuesto(
+                this.input.servicio.codigo,
+                this.input.servicio.nombre + 
+                " Fecha Inic: " + this.input.servicio.fechaInicio + 
+                " Fecha Fin: " + this.input.servicio.fechaFin +
+                " Hora: " + this.input.servicio.hora,
+                this.input.servicio.cantidad,
+                this.input.servicio.dias,
+                this.input.servicio.precio,
+                this.input.servicio.precio,
+            );
+        },
+
+        //Agregar Detalle al Presupuesto
+        addDetallePresupuesto: function(codigo, descripcion, cantidad, dias, precioUnit, total){
+            var element = {};
+            element.codigo = codigo;
+            element.descripcion = descripcion;
+            element.cantidad = cantidad;
+            element.dias = dias;
+            element.precioUnit = precioUnit;
+            element.total = parseInt(cantidad) * parseInt(precioUnit);
+            this.budget.detalles.push(element);
+
+            if(this.input.producto.precio != '' || this.input.servicio.precio != ''){
+                this.total.subTotal += parseInt(element.total);
+            }
         },
 
         //AutoIncremento para Budget
@@ -312,6 +404,7 @@ new Vue({
 
             this.$http.get('/admin/presupuesto/precioSalon/' + this.input.salon.nombre).then(
                 function(response){
+                    this.input.salon.codigo = response.data.codigops;
                     this.input.salon.total = response.data.precio;
                     this.input.salon.totalDescuento = this.input.salon.total
                 },
@@ -329,6 +422,7 @@ new Vue({
                 + this.input.montaje.nombre + '/'
                 + this.input.montaje.picked).then(
                     function(response){
+                        this.input.montaje.codigo = response.data.codigops;
                         this.input.montaje.total = response.data.precio;
                     },
                     function(response){
@@ -449,7 +543,6 @@ new Vue({
             this.$http.get('/admin/presupuesto/listarEquipos').then(
                 (response) => {
                     this.input.servicio.list = response.data;
-                    console.log(response.data);
                 },
                 (response) => {
                     console.log('RESPONSE ERROR AJAX');

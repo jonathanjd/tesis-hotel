@@ -249,13 +249,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>#123</td>
-                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam et lacus in dolor accumsan dictum. </td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td>5000</td>
-                            <td>5000</td>
+                        <tr v-for="detalle in budget.detalles">
+                            <td>@{{ detalle.codigo }}</td>
+                            <td>@{{ detalle.descripcion }}</td>
+                            <td>@{{ detalle.cantidad }}</td>
+                            <td>@{{ detalle.dias }}</td>
+                            <td>@{{ detalle.precioUnit }}</td>
+                            <td>@{{ detalle.total }}</td>
                         </tr>
                     </tbody>
                 </table>
