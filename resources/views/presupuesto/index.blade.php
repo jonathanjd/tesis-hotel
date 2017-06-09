@@ -223,7 +223,7 @@
                 <div class="panel-body text-center">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#cargar"><i class="fa fa-shopping-basket fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-search fa-2x"></i></button>
-                    <button class="btn btn-primary"><i class="fa fa-save fa-2x"></i></button>
+                    <button class="btn btn-primary" :disabled="changeDisabledBtnCreate"><i class="fa fa-save fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-trash fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-check-square-o fa-2x"></i></button>
                     <button class="btn btn-primary"><i class="fa fa-envelope-o fa-2x"></i></button>

@@ -124,7 +124,7 @@ new Vue({
 
         disabled: 1,
         disabledServicio: 1,
-
+        disabledBtnCreate: 1,
     },
 
     
@@ -257,6 +257,16 @@ new Vue({
              }else{
                 return true;
              }
+        },
+
+        //
+        changeDisabledBtnCreate: function(){
+            if(this.budget.codigo != '' && this.cliente.codigo != '' && this.budget.sectionEvento.tipo != '' 
+                && this.budget.detalles.length > 0){
+                return false;
+            }else{
+                return true;
+            }
         },
 
         //Operacion Section Total Presupuesto
