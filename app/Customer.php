@@ -18,6 +18,11 @@ class Customer extends Model
         return $this->hasOne('App\Contact');
     }
 
+    public function budgets()
+    {
+        return $this->hasMany('App\Budget', 'codigo_budget');
+    }
+
 
     public function scopeBuscarCustomer($query,$cedula)
     {

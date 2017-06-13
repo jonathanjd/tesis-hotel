@@ -9,8 +9,10 @@ new Vue({
             codigo: '',
             fechaEmision: '',
             fechaConfirmacion: '',
+            confirmado: false,
             detalles:[],
             sectionEvento: {
+                id: '',
                 tipo: '',
                 salon: '',
                 hora: '',
@@ -20,6 +22,7 @@ new Vue({
                 fechaDesde: '',
                 fechaHasta: '',
             },
+            saldo: 0,
         },
 
         total:{
@@ -32,6 +35,7 @@ new Vue({
             buscar: {
                 cedula: '',
             },
+            id: '',
             codigo: '',
             telefono: '',
             fax: '',
@@ -51,6 +55,7 @@ new Vue({
             },
 
             salon: {
+                id: '',
                 codigo: '',
                 nombre: 'seleccionar',
                 fechaDesde: '',
@@ -63,6 +68,7 @@ new Vue({
             },
 
             montaje: {
+                id: '',
                 codigo: '',
                 picked: 'pequeño',
                 nombre: '',
@@ -80,6 +86,7 @@ new Vue({
             },
 
             producto: {
+                id: '',
                 codigo: '',
                 nombre: '',
                 precio: '',
@@ -95,6 +102,7 @@ new Vue({
             },
 
             servicio: {
+                id: '',
                 codigo: '',
                 nombre: '',
                 precio: '',
@@ -135,11 +143,15 @@ new Vue({
 
         //Tab Evento
         $("#eventoFechaDesde").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.evento.fechaDesde = $('#eventoFechaDesde').val()});
 
         $("#eventoFechaHasta").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.evento.fechaHasta = $('#eventoFechaHasta').val()});
@@ -152,22 +164,30 @@ new Vue({
         }).on("change", () => {this.input.evento.hora = $("#horaEvento").val()});
 
         $("#salonFechaDesde").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.salon.fechaDesde = $("#salonFechaDesde").val()});
 
         $("#salonFechaHasta").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.salon.fechaHasta = $("#salonFechaHasta").val()});
 
         //Tab Producto
         $("#productoFechaInicio").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.producto.fechaInicio = $("#productoFechaInicio").val()});
 
         $("#productoFechaFin").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.producto.fechaFin = $("#productoFechaFin").val()});
@@ -181,11 +201,15 @@ new Vue({
 
         //Tab Servicio
         $("#servicioFechaInicio").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.servicio.fechaInicio = $("#servicioFechaInicio").val()});
 
         $("#servicioFechaFin").datepicker({
+            language: "es",
+            format: "dd-mm-yyyy",
             todayBtn: "linked",
             todayHighlight: true
         }).on("changeDate", () => {this.input.servicio.fechaFin = $("#servicioFechaFin").val()});
@@ -303,6 +327,7 @@ new Vue({
             this.total.subTotal = parseInt(this.input.salon.totalDescuento) + parseInt(this.input.montaje.total);
 
             this.addDetallePresupuesto(
+                this.input.salon.id,
                 this.input.salon.codigo,
                 "Salon: " + 
                 this.budget.sectionEvento.salon + 
@@ -316,6 +341,7 @@ new Vue({
             );
 
            this.addDetallePresupuesto(
+               this.input.montaje.id,
                this.input.montaje.codigo,
                this.input.montaje.nombre,
                1,
@@ -330,6 +356,7 @@ new Vue({
         cargarItemProducto: function(){
 
             this.addDetallePresupuesto(
+                this.input.producto.id,
                 this.input.producto.codigo,
                 this.input.producto.nombre + 
                 " Fecha Inic: " + this.input.producto.fechaInicio + 
@@ -349,6 +376,7 @@ new Vue({
             this.total.subTotal += parseInt(this.input.servicio.precio);
 
             this.addDetallePresupuesto(
+                this.input.servicio.id,
                 this.input.servicio.codigo,
                 this.input.servicio.nombre + 
                 " Fecha Inic: " + this.input.servicio.fechaInicio + 
@@ -362,8 +390,9 @@ new Vue({
         },
 
         //Agregar Detalle al Presupuesto
-        addDetallePresupuesto: function(codigo, descripcion, cantidad, dias, precioUnit, total){
+        addDetallePresupuesto: function(id, codigo, descripcion, cantidad, dias, precioUnit, total){
             var element = {};
+            element.id = id;
             element.codigo = codigo;
             element.descripcion = descripcion;
             element.cantidad = cantidad;
@@ -392,28 +421,52 @@ new Vue({
 
         //Buscar Cliente
         buscarCliente: function(){
-            var codigo = this.cliente.buscar.cedula
-            this.$http.get('/admin/cliente/buscar/' + codigo).then(
+            var codigo = this.cliente.buscar.cedula;
+            if(codigo == ''){
+                toastr.warning('Cliente No Encontrado', 'Mensaje SIGGIEH',{timeOut: 3000});
+            }else{
+                this.$http.get('/admin/cliente/buscar/' + codigo).then(
                 function(response){
                     //Asignar Valores
-                    this.cliente.codigo = response.data.codigo_cte;
-                    this.cliente.telefono = response.data.telefono;
-                    this.cliente.fax = response.data.fax;
-                    this.cliente.nombreContacto = response.data.contact.contacto_c1;
-                    this.cliente.cargoContacto = response.data.contact.cargo_dpto_c1;
-                    this.cliente.telefonoContacto = response.data.contact.telefono_c1;
+                    var getResponse = response.data;
+                    if(getResponse == false){
+                        toastr.warning('Cliente No Encontrado', 'Mensaje SIGGIEH',{timeOut: 3000});
+                    }else{
+                        this.cliente.id = response.data.id;
+                        this.cliente.codigo = response.data.codigo_cte;
+                        this.cliente.telefono = response.data.telefono;
+                        this.cliente.fax = response.data.fax;
+                        this.cliente.nombreContacto = response.data.contact.contacto_c1;
+                        this.cliente.cargoContacto = response.data.contact.cargo_dpto_c1;
+                        this.cliente.telefonoContacto = response.data.contact.telefono_c1;
+                    }
+                    
+                },
+                function(response){
+                    console.log('RESPONSE ERROR AJAX');
+                }
+            );
+            }
+            
+        },
+
+        //getCodigoEvento
+        getCodigoEvento: function(){
+            this.$http.get('/admin/evento/getCodigoEvento/' + this.input.evento.nombre).then(
+                function(response){
+                    this.budget.sectionEvento.id = response.data.id;
                 },
                 function(response){
                     console.log('RESPONSE ERROR AJAX');
                 }
             );
         },
-
         //getPrecioSalon
         getPrecioSalon: function(){
 
             this.$http.get('/admin/presupuesto/precioSalon/' + this.input.salon.nombre).then(
                 function(response){
+                    this.input.salon.id = response.data.id,
                     this.input.salon.codigo = response.data.codigops;
                     this.input.salon.total = response.data.precio;
                     this.input.salon.totalDescuento = this.input.salon.total
@@ -432,6 +485,7 @@ new Vue({
                 + this.input.montaje.nombre + '/'
                 + this.input.montaje.picked).then(
                     function(response){
+                        this.input.montaje.id = response.data.producto_servicio_id;
                         this.input.montaje.codigo = response.data.codigops;
                         this.input.montaje.total = response.data.precio;
                     },
@@ -722,6 +776,7 @@ new Vue({
 
         takeProducto: function(item) {
 
+            this.input.producto.id = item.id;
             this.input.producto.codigo = item.codigops;
             this.input.producto.nombre = item.nombre;
             this.input.producto.precio = item.precio;
@@ -730,6 +785,7 @@ new Vue({
 
         takeServicio: function(item) {
 
+            this.input.servicio.id = item.id;
             this.input.servicio.codigo = item.codigops;
             this.input.servicio.nombre = item.nombre;
             this.input.servicio.precio = item.precio;
@@ -846,7 +902,191 @@ new Vue({
 
         },
 
-        
+        //Limpiar Presupuesto
+        resetPresupuesto: function(){
+
+            //Limpiar budget
+            this.budget.codigo = '';
+            this.budget.fechaEmision = '';
+            this.budget.fechaConfirmacion = '';
+            this.budget.confirmado = '';
+            this.budget.detalles = [];
+            this.budget.saldo = 0;
+            //Limpiar Section Evento
+            this.budget.sectionEvento.id = '';
+            this.budget.sectionEvento.tipo = '';
+            this.budget.sectionEvento.salon = '';
+            this.budget.sectionEvento.hora = '';
+            this.budget.sectionEvento.montaje = '';
+            this.budget.sectionEvento.nPersonas = '';
+            this.budget.sectionEvento.comentarios = '';
+            this.budget.sectionEvento.fechaDesde = '';
+            this.budget.sectionEvento.fechaHasta = '';
+            //Limpiar Total
+            this.total.subTotal = 0;
+            this.total.iva = 0;
+            this.total.totalGeneral = 0;
+            //Limpiar Cliente
+            this.cliente.buscar.cedula = '';
+            this.cliente.id = '';
+            this.cliente.codigo = '';
+            this.cliente.telefono = '';
+            this.cliente.fax = '';
+            this.cliente.nombreContacto = '';
+            this.cliente.cargoContacto = '';
+            this.cliente.telefonoContacto = '';
+          
+            this.autoIncrementoBudget();
+
+        },
+
+        //Limpiat Tab Evento
+        resetTabEvento: function(){
+            
+            //Limpiar Section Evento
+            this.input.evento.nombre = 'seleccionar';
+            this.input.evento.fechaDesde = '';
+            this.input.evento.fechaHasta = '';
+            this.input.evento.hora = '';
+            this.input.evento.nPersonas = '0';
+            this.input.evento.comentarios = '';
+            $('#eventoFechaDesde').val('');
+            $('#eventoFechaHasta').val('');
+            $("#horaEvento").val('');
+            //Limpiar Section Salon
+            this.input.salon.id = '';
+            this.input.salon.codigo = '';
+            this.input.salon.nombre = 'seleccionar';
+            this.input.salon.fechaDesde = '';
+            this.input.salon.fechaHasta = '';
+            this.input.salon.dias = '';
+            this.input.salon.descuento = 0;
+            this.input.salon.total = 0;
+            this.input.salon.totalDescuento = '';
+            this.input.salon.cantidad = '1';
+            $("#salonFechaDesde").val('');
+            $("#salonFechaHasta").val('');
+            
+            //Limpiar Section Montaje
+            this.input.montaje.id = '';
+            this.input.montaje.codigo = '';
+            this.input.montaje.picked = 'pequeño';
+            this.input.montaje.nombre = '';
+            this.input.montaje.cantidad = '1';
+            this.input.montaje.dias = '0';
+            this.input.montaje.total = '0';
+            this.input.montaje.btnImperial = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnEscuela = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnCoctel = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnBanquete = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnAuditorio = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnTipoT = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnTipoU = 'btn btn-primary sizeButtonMiddle';
+            this.input.montaje.btnOtro = 'btn btn-primary sizeButtonMiddle';
+       
+        },
+
+        //Limpiar Tab Producto
+        resetTabProducto: function(){
+
+            this.input.producto.id = '';
+            this.input.producto.codigo = '';
+            this.input.producto.nombre = '';
+            this.input.producto.precio = '';
+            this.input.producto.cantidad = '';
+            this.input.producto.fechaInicio = '';
+            this.input.producto.fechaFin = '';
+            this.input.producto.dias = '';
+            this.input.producto.hora = '';
+            this.input.producto.list = [];
+            this.input.producto.categoria = 'seleccione';
+            this.input.producto.buscar = '';
+            this.input.producto.picked = '';
+            $("#productoFechaInicio").val('');
+            $("#productoFechaFin").val('');
+            $("#productoHora").val('');
+
+        },
+
+        //Limpiar Tab Servicio
+        resetTabServicio: function(){
+
+            this.input.servicio.id = '';
+            this.input.servicio.codigo = '';
+            this.input.servicio.nombre = '';
+            this.input.servicio.precio = '';
+            this.input.servicio.cantidad = '';
+            this.input.servicio.fechaInicio = '';
+            this.input.servicio.fechaFin = '';
+            this.input.servicio.dias = '';
+            this.input.servicio.hora = '';
+            this.input.servicio.list = [];
+            this.input.servicio.categoria = 'seleccione';
+            this.input.servicio.buscar = '';
+            this.input.servicio.picked = '';
+            $("#servicioFechaInicio").val('');
+            $("#servicioFechaFin").val('');
+            $("#servicioHora").val('');
+
+        },
+
+        //Guardar Presupuesto
+        storePresupuesto: function() {
+            var data = {
+                //Data Presupuesto
+                codigoPresupuesto: this.budget.codigo,
+                fechaEmisionPresupuesto: this.budget.fechaEmision,
+                subTotalPresupuesto: this.total.subTotal,
+                ivaPresupuesto: this.total.iva,
+                totalGeneralPresupuesto: this.total.totalGeneral,
+                confirmadoPresupuesto: this.budget.confirmado,
+                fechaConfirmacionPresupuesto: this.budget.fechaConfirmacion,
+                saldoPresupuesto: this.budget.saldo,
+                userIdPresupuesto: this.cliente.id,
+                //Data Detalle Evento
+                fechaInicioEventoD: this.budget.sectionEvento.fechaDesde,
+                fechaFinEventoD: this.budget.sectionEvento.fechaHasta,
+                horaEventoD: this.budget.sectionEvento.hora,
+                nPersonasEventoD: this.budget.sectionEvento.nPersonas,
+                observacionEventoD: this.budget.sectionEvento.comentarios,
+                idEventoD: this.budget.sectionEvento.id,
+                //Data Detalle Presupuesto
+                detallesPresupuesto: this.budget.detalles,
+            };
+            this.$http.post('/admin/presupuesto', data).then(
+                function(response){
+                    this.resetPresupuesto();
+                    this.resetTabEvento();
+                    this.resetTabProducto();
+                    this.resetTabServicio();
+                    toastr.success('Presupuesto Creado', 'Mensaje SIGGIEH',{timeOut: 5000});
+                },
+                function(response){
+                    console.log('RESPONSE ERROR AJAX');
+                }
+            );
+        },
+
+        //Limpiar Todo el Presupuesto
+        btnLimpiarPresupuesto: function(){
+            this.resetPresupuesto();
+            this.resetTabEvento();
+            this.resetTabProducto();
+            this.resetTabServicio();
+            toastr.success('Presupuesto Limpiado', 'Mensaje SIGGIEH',{timeOut: 3000});       
+        },
+
+        btnLimpiarTabEvento: function(){
+            this.resetTabEvento();
+        },
+
+        btnLimpiarTabProducto: function(){
+            this.resetTabProducto();
+        },
+
+        btnLimpiarTabServicio: function(){
+            this.resetTabServicio();
+        },
 
     },
 

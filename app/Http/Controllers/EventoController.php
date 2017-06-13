@@ -131,5 +131,12 @@ class EventoController extends Controller
         return response()->json($response);
     }
 
+    public function getCodigoEvento($nombre)
+    {
+        # code...
+        $response = Evento::where('nombre', $nombre)->first();
+        return response()->json($response);
+    }
+
     
 }

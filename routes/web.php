@@ -43,6 +43,7 @@ Route::group(['prefix' => 'admin','middleware' => 'auth'], function () {
     Route::get('evento/buscarNombreEvento/{value}','EventoController@buscarNombreEvento');
     Route::get('evento/buscarCodigoEvento/{value}','EventoController@buscarCodigoEvento');
     Route::get('evento/autoIncrementoEvento','EventoController@autoIncrementoEvento');
+    Route::get('evento/getCodigoEvento/{codigo}', 'EventoController@getCodigoEvento');
     Route::resource('evento', 'EventoController');
 
     Route::get('salon/buscarNombreSalon/{value}','SalonController@buscarNombreSalon');

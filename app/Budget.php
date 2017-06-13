@@ -15,6 +15,11 @@ class Budget extends Model
         'saldo', 'customer_id'
     ];
 
+    public function customer()
+    {
+        return $this->belongsTo('App\Customer');
+    }
+
     public function detailBudgets()
     {
         return $this->hasMany('App\DetailBudget', 'detail_budget_id');

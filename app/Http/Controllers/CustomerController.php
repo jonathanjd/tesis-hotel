@@ -44,7 +44,8 @@ class CustomerController extends Controller
     {
         # code...
         $customer = Customer::buscarCustomer($cedula);
-        if($customer->exists()){
+        
+        if($customer->count() > 0){
             return response()->json($customer);
         }else{
             $mensaje = false;

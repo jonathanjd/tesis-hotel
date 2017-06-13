@@ -12,7 +12,7 @@
                         <p><strong>Desde:</strong><input id="eventoFechaDesde" class="form-control" type="text"></p>
                         <p><strong>Hasta:</strong><input id="eventoFechaHasta" class="form-control" type="text"></p>
                         <p><strong>Evento:</strong></p>
-                        <select class="form-control" v-model="input.evento.nombre">
+                        <select class="form-control" v-model="input.evento.nombre" @change="getCodigoEvento">
                             <option disabled selected value="seleccionar">Seleccionar</option>
                                 @foreach($listEvento as $item)
                                     <option value="{{ $item->nombre }}">{{ $item->nombre }}</option>
@@ -130,7 +130,7 @@
                                         </button>
                     <br>
                     <br>
-                    <button class="btn btn-primary btn-lg fa-2x" type="button" name="button">
+                    <button class="btn btn-primary btn-lg fa-2x" type="button" name="button" @click="btnLimpiarTabEvento">
                                             <i class="fa fa-refresh"></i>
                                         </button>
                     <br>

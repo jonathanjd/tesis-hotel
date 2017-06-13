@@ -30,11 +30,7 @@
     @yield('style')
 
     <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
+    
 </head>
 <body>
     <div id="app">
@@ -53,7 +49,7 @@
         @endif
 
     </div>
-
+ 
     <!-- Scripts -->
     <!-- jQuery -->
     {!! Html::script('js/jquery.min.js') !!}
@@ -66,7 +62,7 @@
 
     <!-- Custom Theme JavaScript -->
     {!! Html::script('js/sb-admin-2.min.js') !!}
-
+   
     <!-- Other Scripts -->
     @yield('script')
 </body>

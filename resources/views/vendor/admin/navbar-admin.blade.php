@@ -7,7 +7,10 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{{ route('admin') }}">SIGGIEH</a>
+        <a class="navbar-brand" href="{{ route('admin') }}">
+            <img class="" src="{{ asset('img/logo-sistema.png')}}" style="display: inline-block;" alt="Logo Sistema" height="100%">
+                SIGGIEH
+        </a>
     </div>
     <!-- /.navbar-header -->
 

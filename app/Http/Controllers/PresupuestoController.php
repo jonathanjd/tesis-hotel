@@ -12,6 +12,10 @@ use App\Evento;
 
 use App\ProductoServicio;
 
+use App\DetailBudget;
+
+use App\DetailEvento;
+
 class PresupuestoController extends Controller
 {
     /**
@@ -50,6 +54,44 @@ class PresupuestoController extends Controller
     public function store(Request $request)
     {
         //
+        $presupuesto = new Budget();
+        $presupuesto->codigo_budget = $request->codigoPresupuesto;
+        $presupuesto->fecha_emision = $request->fechaEmisionPresupuesto;
+        $presupuesto->subtotal = $request->subTotalPresupuesto;
+        $presupuesto->iva = $request->ivaPresupuesto;
+        $presupuesto->total_general = $request->totalGeneralPresupuesto;
+        $presupuesto->confirmado = $request->confirmadoPresupuesto;
+        $presupuesto->fecha_confirmacion = $request->fechaConfirmadoPresupuesto;
+        $presupuesto->saldo = $request->saldoPresupuesto;
+        $presupuesto->customer_id = $request->userIdPresupuesto;
+        $presupuesto->save();
+
+        $detalleEvento = new DetailEvento();
+        $fechaInicioEventoD = Carbon::createFromFormat('d-m-Y', $request->fechaInicioEventoD);
+        $detalleEvento->fecha_inic = $fechaInicioEventoD->format('Y-m-d');
+        $fechaFinEventoD = Carbon::createFromFormat('d-m-Y', $request->fechaFinEventoD);
+        $detalleEvento->fecha_fin = $fechaFinEventoD->format('Y-m-d');
+        $detalleEvento->hora = $request->horaEventoD;
+        $detalleEvento->personas = $request->nPersonasEventoD;
+        $detalleEvento->observacion = $request->observacionEventoD;
+        $detalleEvento->budget()->associate($presupuesto);
+        $detalleEvento->evento_id = $request->idEventoD;
+        $detalleEvento->save();
+
+        foreach ($request->detallesPresupuesto as $detalle) {
+            # code...
+            $detalle = (object) $detalle;
+            $detallePresupuesto = new DetailBudget();
+            $detallePresupuesto->cantidad = $detalle->cantidad;
+            $detallePresupuesto->dias = $detalle->dias;
+            $detallePresupuesto->precio_total = $detalle->total;
+            $detallePresupuesto->descripcion = $detalle->descripcion;
+            $detallePresupuesto->budget()->associate($presupuesto);
+            $detallePresupuesto->producto_servicio_id = $detalle->id;
+            $detallePresupuesto->save();
+        }
+
+        
     }
 
     /**

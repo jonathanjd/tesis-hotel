@@ -12,6 +12,7 @@
 
             <!-- Branding Image -->
             <a class="navbar-brand" href="{{ url('/') }}">
+                <img class="" src="{{ asset('img/logo-sistema.png')}}" style="display: inline-block;" alt="Logo Sistema" height="100%">
                 SIGGIEH
             </a>
         </div>

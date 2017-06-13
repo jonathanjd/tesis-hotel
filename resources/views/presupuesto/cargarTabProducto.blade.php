@@ -123,7 +123,7 @@
                         </button>
                         <br>
                         <br>
-                        <button class="btn btn-primary btn-lg fa-2x" type="button" name="button">
+                        <button class="btn btn-primary btn-lg fa-2x" type="button" @click="btnLimpiarTabProducto" name="button">
                             <i class="fa fa-refresh"></i>
                         </button>
                         <br>
